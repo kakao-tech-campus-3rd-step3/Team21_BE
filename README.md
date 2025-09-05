@@ -196,3 +196,21 @@ CREATE TABLE PROF_REVIEW (
     FOREIGN KEY (PROF_SEQ) REFERENCES PROF(PROF_SEQ)
 );
 ```
+
+---
+## 📖 API 명세
+
+| 기능         | 메서드 | 엔드포인트           | 설명         |
+| :--- | :--- | :--- | :--- |
+| 회원가입     | POST   | /api/users/signup  | 새로운 회원 등록 |
+| 로그인       | POST   | /api/users/login   | 로그인     |
+| 통합 검색    | GET    | /api/search        | 다양한 조합의 검색 기능 |
+| 대학 정보 조회 | GET | /api/univ/{univ_seq} | 특정 대학의 상세 정보 및 리뷰 조회 |
+| 교수 정보 조회 | GET | /api/prof/{prof_seq} | 특정 교수의 상세 정보 및 리뷰/강의 목록 조회 |
+| 강의 리뷰 작성 | POST | `/api/reviews/lecture` | 새로운 강의 리뷰 등록 |
+
+<br>
+
+➡️ **전체 API 문서**: [여기서 확인하세요](https://teamsparta.notion.site/API-2632dc3ef51480898ed6fa3248ae4c7d)
+
+---

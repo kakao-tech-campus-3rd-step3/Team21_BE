@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public class LectureReivew {
     private Integer lecDifficulty;
 
     @Column(name = "GRADE_DISTRIBUTION")
-    private String gradeDistribution;
+    private Integer gradeDistribution;
 
     @Column(name = "SEMESTER")
     private String semester;
@@ -38,12 +39,15 @@ public class LectureReivew {
     private Integer examDifficulty;
 
     @Column(name = "GROUP_PROJ_REQ")
-    private Integer groupProjReq;
+    private String groupProjReq;
 
     @Column(name = "OVERALL_REVIEW")
-    private Integer overallReview;
+    private String overallReview;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LEC_SEQ")
     private Lecture lecture;
+
+    @Column(name = "CREATE_DATE")
+    private LocalDateTime createdAt;
 }

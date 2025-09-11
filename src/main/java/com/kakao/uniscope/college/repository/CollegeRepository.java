@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CollegeRepository extends JpaRepository<College,Long> {
+public interface CollegeRepository extends JpaRepository<College, Long> {
     List<College> findByUniversity_UnivSeq(Long univSeq);
 }

@@ -58,6 +58,8 @@ public class UnivServiceTest {
         // 대학 평가 엔티티
         UnivReview mockReview = mock(UnivReview.class);
         when(mockReview.getUnivReviewSeq()).thenReturn(10L);
+        when(mockReview.getOverallScore()).thenReturn(4);
+        when(mockReview.getReviewText()).thenReturn("대학 리뷰");
         when(mockReview.getCreateDate()).thenReturn(LocalDateTime.now());
         List<UnivReview> mockReviews = List.of(mockReview);
 

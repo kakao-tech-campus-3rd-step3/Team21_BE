@@ -65,7 +65,7 @@ public class UnivControllerTest {
     private UnivResponseDto createMockResponseDto() {
         UniversityDto universityDto = new UniversityDto(1L, "충남대학교", "대전", "042", "cnu.ac.kr", "image.png", "1952", 28000);
         List<CollegeDto> collegeDtos = Collections.emptyList();
-        List<UnivReviewSummaryDto> reviewDtos = List.of(new UnivReviewSummaryDto(10L, LocalDateTime.now()));
+        List<UnivReviewSummaryDto> reviewDtos = List.of(new UnivReviewSummaryDto(10L, 4, "대학 리뷰", LocalDateTime.now()));
         return new UnivResponseDto(universityDto, collegeDtos, reviewDtos);
     }
 

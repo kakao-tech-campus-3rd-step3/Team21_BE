@@ -1,4 +1,4 @@
-package com.kakao.uniscope.professor.review;
+package com.kakao.uniscope.professor.review.entity;
 
 import com.kakao.uniscope.professor.entity.Professor;
 import jakarta.persistence.Column;

@@ -1,7 +1,7 @@
 package com.kakao.uniscope.professor.entity;
 
 import com.kakao.uniscope.lecture.entity.Lecture;
-import com.kakao.uniscope.professor.review.ProfReview;
+import com.kakao.uniscope.professor.review.entity.ProfReview;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

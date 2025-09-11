@@ -1,4 +1,4 @@
-package com.kakao.uniscope.lecture.review;
+package com.kakao.uniscope.lecture.review.entity;
 
 import com.kakao.uniscope.lecture.entity.Lecture;
 import jakarta.persistence.Column;

@@ -49,5 +49,5 @@ public class LectureReivew {
     private Lecture lecture;
 
     @Column(name = "CREATE_DATE")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
 }

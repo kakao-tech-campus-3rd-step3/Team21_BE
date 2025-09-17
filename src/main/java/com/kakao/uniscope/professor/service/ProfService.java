@@ -29,13 +29,13 @@ public class ProfService {
                 .orElseThrow(() -> new ProfessorNotFoundException(profSeq));
 
         // 교수 평가 통계
-        Double avgThesisPerf = FindAvg(() -> profReviewRepository.findAvgThesisPerf(profSeq));
-        Double avgResearchPerf = FindAvg(() -> profReviewRepository.findAvgResearchPerf(profSeq));
+        Double avgThesisPerf = findAvg(() -> profReviewRepository.findAvgThesisPerf(profSeq));
+        Double avgResearchPerf = findAvg(() -> profReviewRepository.findAvgResearchPerf(profSeq));
 
         // 강의 평가 통계
-        Double avgHomework = FindAvg(() -> lectureReviewRepository.findAvgHomework(profSeq));
-        Double avgLecDifficulty = FindAvg(() -> lectureReviewRepository.findAvgLecDifficulty(profSeq));
-        Double avgExamDifficulty = FindAvg(() -> lectureReviewRepository.findAvgExamDifficulty(profSeq));
+        Double avgHomework = findAvg(() -> lectureReviewRepository.findAvgHomework(profSeq));
+        Double avgLecDifficulty = findAvg(() -> lectureReviewRepository.findAvgLecDifficulty(profSeq));
+        Double avgExamDifficulty = findAvg(() -> lectureReviewRepository.findAvgExamDifficulty(profSeq));
 
         Double overallRating = (avgThesisPerf + avgResearchPerf +
                 avgHomework + avgLecDifficulty + avgExamDifficulty) / 5;
@@ -64,7 +64,7 @@ public class ProfService {
         return new ProfResponseDto(professorDto, lectureReviewDtos);
     }
 
-    private Double FindAvg(Supplier<Double> supplier) {
+    private Double findAvg(Supplier<Double> supplier) {
         try {
             Double result = supplier.get();
             return result != null ? result : 0.0;

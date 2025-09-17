@@ -25,9 +25,21 @@ public class ProfService {
 
     public ProfResponseDto getProfessorDetails(Long profSeq) {
 
-        Professor professor = professorRepository.findById(profSeq)
-                .orElseThrow(() -> new ProfessorNotFoundException(profSeq));
+        Professor professor = findProfessorById(profSeq);
+        RatingBreakdownDto ratingBreakdown = calculateRatings(profSeq);
+        Double overallRating = calculateOverallRating(ratingBreakdown);
+        ProfessorDto professorDto = createProfessorDto(professor, overallRating, ratingBreakdown);
+        List<LectureReviewSummaryDto> lectureReviews = getRecentLectureReviews(profSeq);
 
+        return new ProfResponseDto(professorDto, lectureReviews);
+    }
+
+    private Professor findProfessorById(Long profSeq) {
+        return professorRepository.findById(profSeq)
+                .orElseThrow(() -> new ProfessorNotFoundException(profSeq));
+    }
+
+    private RatingBreakdownDto calculateRatings(Long profSeq) {
         // 교수 평가 통계
         Double avgThesisPerf = findAvg(() -> profReviewRepository.findAvgThesisPerf(profSeq));
         Double avgResearchPerf = findAvg(() -> profReviewRepository.findAvgResearchPerf(profSeq));
@@ -37,31 +49,35 @@ public class ProfService {
         Double avgLecDifficulty = findAvg(() -> lectureReviewRepository.findAvgLecDifficulty(profSeq));
         Double avgExamDifficulty = findAvg(() -> lectureReviewRepository.findAvgExamDifficulty(profSeq));
 
-        Double overallRating = (avgThesisPerf + avgResearchPerf +
-                avgHomework + avgLecDifficulty + avgExamDifficulty) / 5;
-
-        // 그래프에 평점 나타내기 위한 정보
-        RatingBreakdownDto ratingBreakdown = RatingBreakdownDto.of(
+        return RatingBreakdownDto.of(
                 avgThesisPerf, avgResearchPerf,
                 avgHomework, avgLecDifficulty, avgExamDifficulty);
+    }
 
-        // 교수 dto 반환
-        ProfessorDto professorDto = ProfessorDto.from(
-                professor, overallRating, ratingBreakdown);
+    private Double calculateOverallRating(RatingBreakdownDto ratingBreakdown) {
+        return (ratingBreakdown.thesisPerformance() +
+                ratingBreakdown.researchPerformance() +
+                ratingBreakdown.homework() +
+                ratingBreakdown.lectureDifficulty() +
+                ratingBreakdown.examDifficulty()) / 5.0;
+    }
 
-        // 최근 강의평 3개
+    private ProfessorDto createProfessorDto(Professor professor, Double overallRating,
+            RatingBreakdownDto ratingBreakdown) {
+        return ProfessorDto.from(professor, overallRating, ratingBreakdown);
+    }
+
+
+    private List<LectureReviewSummaryDto> getRecentLectureReviews(Long profSeq) {
         List<LectureReivew> recentLectureReviews = lectureReviewRepository
                 .findTop3ByLecture_Professor_ProfSeqOrderByCreatedDateDesc(profSeq)
                 .stream()
                 .limit(3)
                 .toList();
 
-        // 강의평 dto 반환
-        List<LectureReviewSummaryDto> lectureReviewDtos = recentLectureReviews.stream()
+        return recentLectureReviews.stream()
                 .map(LectureReviewSummaryDto::from)
                 .toList();
-
-        return new ProfResponseDto(professorDto, lectureReviewDtos);
     }
 
     private Double findAvg(Supplier<Double> supplier) {

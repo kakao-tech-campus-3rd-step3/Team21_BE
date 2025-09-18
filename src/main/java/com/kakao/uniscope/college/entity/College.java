@@ -1,8 +1,12 @@
 package com.kakao.uniscope.college.entity;
 
+import com.kakao.uniscope.department.entity.Department;
 import com.kakao.uniscope.univ.entity.University;
 import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "COLLEGE")
@@ -20,6 +24,9 @@ public class College {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UNIV_SEQ")
     private University university;
+
+    @OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Department> departments = new ArrayList<>();
 
     protected College() {}
 }

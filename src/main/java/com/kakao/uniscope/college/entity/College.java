@@ -3,7 +3,7 @@ package com.kakao.uniscope.college.entity;
 import com.kakao.uniscope.department.entity.Department;
 import com.kakao.uniscope.univ.entity.University;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,9 @@ import java.util.List;
 @Entity
 @Table(name = "COLLEGE")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class College {
 
     @Id
@@ -26,7 +29,6 @@ public class College {
     private University university;
 
     @OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Department> departments = new ArrayList<>();
-
-    protected College() {}
 }

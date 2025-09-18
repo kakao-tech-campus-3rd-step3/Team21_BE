@@ -2,14 +2,14 @@ package com.kakao.uniscope.department.entity;
 
 import com.kakao.uniscope.college.entity.College;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "DEPT")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class Department {
 
     @Id

@@ -7,7 +7,7 @@ import com.kakao.uniscope.user.entity.User;
 import com.kakao.uniscope.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.kakao.uniscope.user.service.JwtTokenProvider;
@@ -18,7 +18,7 @@ import com.kakao.uniscope.user.service.JwtTokenProvider;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
     //회원가입

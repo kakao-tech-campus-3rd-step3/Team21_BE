@@ -64,8 +64,8 @@ public class User {
             throw new IllegalArgumentException("암호화된 비밀번호는 필수입니다.");
         }
         
-        if (!isValidBCryptHash(encodedPassword)) {
-            throw new IllegalArgumentException("유효하지 않은 BCrypt 해시 형식입니다.");
+        if (!isValidEncodedPassword(encodedPassword)) {
+            throw new IllegalArgumentException("유효하지 않은 암호화된 비밀번호 형식입니다.");
         }
         
         // 기존 비밀번호와 동일한지 확인
@@ -76,11 +76,14 @@ public class User {
         this.userPwd = encodedPassword;
     }
     
-    // BCrypt 해시 형식 검증
-    private boolean isValidBCryptHash(String hash) {
-        return hash != null 
-            && hash.length() == 60 
-            && (hash.startsWith("$2a$") || hash.startsWith("$2b$") || hash.startsWith("$2y$"));
+    // 암호화된 비밀번호 형식 검증
+    private boolean isValidEncodedPassword(String encodedPassword) {
+        if (encodedPassword == null || encodedPassword.isBlank()) {
+            return false;
+        }
+        
+        return encodedPassword.length() == 60 
+            && (encodedPassword.startsWith("$2a$") || encodedPassword.startsWith("$2b$") || encodedPassword.startsWith("$2y$"));
     }
 
     public void softDelete() {

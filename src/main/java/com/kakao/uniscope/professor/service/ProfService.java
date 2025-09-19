@@ -28,7 +28,7 @@ public class ProfService {
         Professor professor = findProfessorById(profSeq);
         RatingBreakdownDto ratingBreakdown = calculateRatings(profSeq);
         Double overallRating = calculateOverallRating(ratingBreakdown);
-        ProfessorDto professorDto = createProfessorDto(professor, overallRating, ratingBreakdown);
+        ProfessorDto professorDto = ProfessorDto.from(professor, overallRating, ratingBreakdown);
         List<LectureReviewSummaryDto> lectureReviews = getRecentLectureReviews(profSeq);
 
         return new ProfResponseDto(professorDto, lectureReviews);
@@ -62,17 +62,10 @@ public class ProfService {
                 ratingBreakdown.examDifficulty()) / 5.0;
     }
 
-    private ProfessorDto createProfessorDto(Professor professor, Double overallRating,
-            RatingBreakdownDto ratingBreakdown) {
-        return ProfessorDto.from(professor, overallRating, ratingBreakdown);
-    }
-
-
     private List<LectureReviewSummaryDto> getRecentLectureReviews(Long profSeq) {
         List<LectureReivew> recentLectureReviews = lectureReviewRepository
                 .findTop3ByLecture_Professor_ProfSeqOrderByCreatedDateDesc(profSeq)
                 .stream()
-                .limit(3)
                 .toList();
 
         return recentLectureReviews.stream()

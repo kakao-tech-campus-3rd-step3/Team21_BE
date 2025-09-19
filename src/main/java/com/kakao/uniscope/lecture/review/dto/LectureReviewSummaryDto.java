@@ -13,7 +13,7 @@ public record LectureReviewSummaryDto(
         Integer examDifficulty,
         String groupProjReq,
         String content,
-        LocalDateTime craetedAt
+        LocalDateTime createdDate
 ) {
     public static LectureReviewSummaryDto from(LectureReivew lectureReview) {
         return new LectureReviewSummaryDto(
@@ -26,7 +26,7 @@ public record LectureReviewSummaryDto(
                 lectureReview.getExamDifficulty(),
                 lectureReview.getGroupProjReq(),
                 lectureReview.getOverallReview(),
-                lectureReview.getCreatedAt()
+                lectureReview.getCreatedDate()
         );
     }
 }

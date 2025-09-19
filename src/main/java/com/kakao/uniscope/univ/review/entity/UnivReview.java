@@ -2,13 +2,16 @@ package com.kakao.uniscope.univ.review.entity;
 
 import com.kakao.uniscope.univ.entity.University;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "UNIV_REVIEW")
 @Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UnivReview {
 
     @Id
@@ -43,6 +46,4 @@ public class UnivReview {
 
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;
-
-    protected UnivReview() {}
 }

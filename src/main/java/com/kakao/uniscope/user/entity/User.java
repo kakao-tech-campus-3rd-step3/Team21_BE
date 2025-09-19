@@ -58,8 +58,29 @@ public class User {
         this.deltYn = "N";
     }
 
-    public void updatePassword(String newPassword) {
-        this.userPwd = newPassword;
+    // 비밀번호 업데이트
+    public void updatePasswordWithEncoded(String encodedPassword) {
+        if (encodedPassword == null || encodedPassword.isBlank()) {
+            throw new IllegalArgumentException("암호화된 비밀번호는 필수입니다.");
+        }
+        
+        if (!isValidBCryptHash(encodedPassword)) {
+            throw new IllegalArgumentException("유효하지 않은 BCrypt 해시 형식입니다.");
+        }
+        
+        // 기존 비밀번호와 동일한지 확인
+        if (encodedPassword.equals(this.userPwd)) {
+            throw new IllegalArgumentException("새로운 비밀번호는 기존과 달라야 합니다.");
+        }
+        
+        this.userPwd = encodedPassword;
+    }
+    
+    // BCrypt 해시 형식 검증
+    private boolean isValidBCryptHash(String hash) {
+        return hash != null 
+            && hash.length() == 60 
+            && (hash.startsWith("$2a$") || hash.startsWith("$2b$") || hash.startsWith("$2y$"));
     }
 
     public void softDelete() {

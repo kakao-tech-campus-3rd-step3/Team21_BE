@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.kakao.uniscope.user.service.JwtTokenProvider;
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -92,5 +92,23 @@ public class UserService {
     //아이디 중복 체크
     public boolean existsByUserId(String userId) {
         return userRepository.existsByUserId(userId);
+    }
+
+    //비밀번호 변경
+    @Transactional
+    public void updatePassword(String userId, String currentPassword, String newPassword) {
+        // 사용자 조회
+        User user = findByUserId(userId);
+        
+        // 현재 비밀번호 확인
+        if (!passwordEncoder.matches(currentPassword, user.getUserPwd())) {
+            throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+        }
+        
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+        
+        user.updatePasswordWithEncoded(encodedNewPassword);
+        
+        log.info("비밀번호 변경 완료: userId={}", userId);
     }
 }

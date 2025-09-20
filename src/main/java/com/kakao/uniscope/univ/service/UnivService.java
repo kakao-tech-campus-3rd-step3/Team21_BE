@@ -2,17 +2,14 @@ package com.kakao.uniscope.univ.service;
 
 import com.kakao.uniscope.college.dto.CollegeDto;
 import com.kakao.uniscope.college.entity.College;
-import com.kakao.uniscope.college.repository.CollegeRepository;
+import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import com.kakao.uniscope.univ.dto.UnivResponseDto;
 import com.kakao.uniscope.univ.dto.UniversityDto;
 import com.kakao.uniscope.univ.entity.University;
 import com.kakao.uniscope.univ.repository.UnivRepository;
 import com.kakao.uniscope.univ.review.dto.UnivReviewSummaryDto;
 import com.kakao.uniscope.univ.review.entity.UnivReview;
-import com.kakao.uniscope.univ.review.repository.UnivReviewRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,25 +17,20 @@ import java.util.List;
 public class UnivService {
 
     private final UnivRepository univRepository;
-    private final CollegeRepository collegeRepository;
-    private final UnivReviewRepository univReviewRepository;
 
-    public UnivService(
-            UnivRepository univRepository,
-            CollegeRepository collegeRepository,
-            UnivReviewRepository univReviewRepository
-    ) {
+    public UnivService(UnivRepository univRepository) {
         this.univRepository = univRepository;
-        this.collegeRepository = collegeRepository;
-        this.univReviewRepository = univReviewRepository;
     }
 
     public UnivResponseDto getUniversityDetails(Long univSeq) {
         University university = univRepository.findById(univSeq)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResourceNotFoundException(univSeq + "에 해당하는 대학교를 찾을 수 없습니다."));
 
-        List<College> colleges = collegeRepository.findByUniversity_UnivSeq(univSeq);
-        List<UnivReview> recentReviews = univReviewRepository.findTop3ByUniversityOrderByCreateDateDesc(university);
+        List<College> colleges = university.getColleges();
+        List<UnivReview> recentReviews = university.getReviews().stream()
+                .sorted((r1, r2) -> r2.getCreateDate().compareTo(r1.getCreateDate()))
+                .limit(3)
+                .toList();
 
         List<CollegeDto> collegeDtos = colleges.stream()
                 .map(CollegeDto::from)

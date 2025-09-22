@@ -10,3 +10,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+jwt:
+  secret: ${JWT_SECRET}
+  token-validity-in-seconds: 3600

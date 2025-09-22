@@ -46,4 +46,5 @@ jobs:
               -DDB_HOST=localhost \
               -DDB_USERNAME=${{ secrets.DB_USERNAME }} \
               -DDB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              -DJWT_SECRET=${{ secrets.JWT_SECRET }} \
               build/libs/*.jar &

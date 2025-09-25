@@ -42,9 +42,22 @@ public class University {
     @Column(name = "STUDENT_NUM")
     private Integer totalStudent;
 
+    @Column(name = "CAMPUS_CNT")
+    private Integer campusCnt;
+
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<College> colleges = new ArrayList<>();
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UnivReview> reviews = new ArrayList<>();
+
+    public int getCollegeCount() {
+        return this.colleges.size();
+    }
+
+    public int getDepartmentCount() {
+        return this.colleges.stream()
+                .mapToInt(college -> college.getDepartments().size())
+                .sum();
+    }
 }

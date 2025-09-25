@@ -16,11 +16,12 @@ public record ProfessorDto(
         String position,
         Double overallRating, // 강의평 기준 평점
         RatingBreakdownDto ratingBreakdown,
+        DepartmentAverageDto departmentAverage,
         List<LectureSimpleDto> lectures,
         Integer totalReviewCount
 ) {
     public static ProfessorDto from(Professor professor, Double overallRating, RatingBreakdownDto ratingBreakdown,
-            List<LectureSimpleDto> lectures, Integer totalReviewCount) {
+            DepartmentAverageDto departmentAverage, List<LectureSimpleDto> lectures, Integer totalReviewCount) {
         return new ProfessorDto(
                 professor.getProfSeq(),
                 professor.getProfName(),
@@ -33,6 +34,7 @@ public record ProfessorDto(
                 professor.getPosition(),
                 overallRating,
                 ratingBreakdown,
+                departmentAverage,
                 lectures,
                 totalReviewCount
         );

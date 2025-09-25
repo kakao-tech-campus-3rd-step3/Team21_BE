@@ -3,6 +3,7 @@ package com.kakao.uniscope.professor.service;
 import com.kakao.uniscope.lecture.review.dto.LectureReviewSummaryDto;
 import com.kakao.uniscope.lecture.review.entity.LectureReivew;
 import com.kakao.uniscope.lecture.review.repository.LectureReviewRepository;
+import com.kakao.uniscope.professor.dto.DepartmentAverageDto;
 import com.kakao.uniscope.professor.dto.LectureReviewPageResponseDto;
 import com.kakao.uniscope.professor.dto.LectureSimpleDto;
 import com.kakao.uniscope.professor.dto.ProfResponseDto;
@@ -31,6 +32,7 @@ public class ProfService {
 
         Professor professor = findProfessorById(profSeq);
         RatingBreakdownDto ratingBreakdown = calculateRatings(profSeq);
+        DepartmentAverageDto departmentAverage = calculateDeptRatings(professor.getDepartment().getDeptSeq());
         Double overallRating = lectureReviewRepository.findOverallLectureRating(profSeq);
 
         List<LectureSimpleDto> lectures = professor.getLectures().stream()
@@ -39,7 +41,7 @@ public class ProfService {
 
         Integer totalReviewCount = lectureReviewRepository.countByProfessorId(profSeq);
 
-        ProfessorDto professorDto = ProfessorDto.from(professor, overallRating, ratingBreakdown, lectures, totalReviewCount);
+        ProfessorDto professorDto = ProfessorDto.from(professor, overallRating, ratingBreakdown, departmentAverage, lectures, totalReviewCount);
         List<LectureReviewSummaryDto> lectureReviews = getRecentLectureReviews(profSeq);
 
         return new ProfResponseDto(professorDto, lectureReviews);
@@ -74,6 +76,21 @@ public class ProfService {
         return RatingBreakdownDto.of(
                 avgThesisPerf, avgResearchPerf,
                 avgHomework, avgLecDifficulty, avgExamDifficulty);
+    }
+
+    private DepartmentAverageDto calculateDeptRatings(Long deptSeq) {
+        // 학과 교수 평가 통계
+        Double avgDeptThesisPerf = findAvg(() -> profReviewRepository.findDeptAvgThesisPerf(deptSeq));
+        Double avgDeptResearchPerf = findAvg(() -> profReviewRepository.findDeptAvgResearchPerf(deptSeq));
+
+        // 학과 강의 평가 통계
+        Double avgDeptHomework = findAvg(() -> lectureReviewRepository.findDeptAvgHomework(deptSeq));
+        Double avgDeptLecDifficulty = findAvg(() -> lectureReviewRepository.findDeptAvgLecDifficulty(deptSeq));
+        Double avgDeptExamDifficulty = findAvg(() -> lectureReviewRepository.findDeptAvgExamDifficulty(deptSeq));
+
+        return DepartmentAverageDto.of(
+                avgDeptThesisPerf, avgDeptResearchPerf,
+                avgDeptHomework,avgDeptLecDifficulty, avgDeptExamDifficulty);
     }
 
     private List<LectureReviewSummaryDto> getRecentLectureReviews(Long profSeq) {

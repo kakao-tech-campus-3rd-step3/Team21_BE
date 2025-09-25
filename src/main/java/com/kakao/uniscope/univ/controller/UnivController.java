@@ -1,5 +1,6 @@
 package com.kakao.uniscope.univ.controller;
 
+import com.kakao.uniscope.college.dto.CollegeListResponseDto;
 import com.kakao.uniscope.univ.dto.UnivResponseDto;
 import com.kakao.uniscope.univ.review.dto.UnivReviewResponseDto;
 import com.kakao.uniscope.univ.review.service.UnivReviewService;
@@ -40,6 +41,14 @@ public class UnivController {
             @PageableDefault(size = 10, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         UnivReviewResponseDto responseDto = univReviewService.getAllUnivReviews(univSeq, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    // 대학의 모든 단과대학 목록을 반환하는 API
+    @GetMapping("/{univSeq}/colleges")
+    public ResponseEntity<CollegeListResponseDto> getAllCollegeList(@PathVariable Long univSeq) {
+        CollegeListResponseDto responseDto = univService.getAllCollegeList(univSeq);
+
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }

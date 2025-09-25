@@ -33,7 +33,7 @@ public class University {
     @Column(name = "HOME_PAGE")
     private String homePage;
 
-    @Column(name = "IMAGE")
+    @Column(name = "IMAGE_URL")
     private String imageUrl;
 
     @Column(name = "ESTABLISHED_YEAR")

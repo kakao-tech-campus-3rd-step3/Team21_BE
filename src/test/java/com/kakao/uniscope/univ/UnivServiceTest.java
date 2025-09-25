@@ -1,5 +1,6 @@
 package com.kakao.uniscope.univ;
 
+import com.kakao.uniscope.college.dto.CollegeListResponseDto;
 import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import com.kakao.uniscope.univ.dto.UnivResponseDto;
 import com.kakao.uniscope.univ.service.UnivService;
@@ -38,5 +39,15 @@ public class UnivServiceTest {
     void getUniversityDetails_NotFound() {
         assertThrows(ResourceNotFoundException.class,
                 () -> univService.getUniversityInfo(999L));
+    }
+
+    @Test
+    void 대학의_단과대학_목록을_조회하면_모든_단과대학을_가져온다() {
+        Long univSeq = 1L;
+
+        CollegeListResponseDto result = univService.getAllCollegeList(univSeq);
+
+        assertNotNull(result);
+        assertEquals(3, result.colleges().size());
     }
 }

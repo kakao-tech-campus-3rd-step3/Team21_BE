@@ -27,10 +27,36 @@ public class FakeCollegeRepository implements CollegeRepository {
         College college1 = College.builder()
                 .collegeSeq(1L)
                 .collegeName("공과대학")
+                .collegeStudentNum(5000)
+                .collegeEstablishedYear("1980")
+                .collegeTel("042-111-1111")
+                .collegeHomePage("http://eng.cnu.ac.kr")
                 .departments(List.of(dept1, dept2))
                 .build();
 
+        College college2 = College.builder()
+                .collegeSeq(2L)
+                .collegeName("자연과학대학")
+                .collegeStudentNum(3000)
+                .collegeEstablishedYear("1975")
+                .collegeTel("042-222-2222")
+                .collegeHomePage("http://sci.cnu.ac.kr")
+                .departments(List.of())
+                .build();
+
+        College college3 = College.builder()
+                .collegeSeq(3L)
+                .collegeName("인문대학")
+                .collegeStudentNum(2000)
+                .collegeEstablishedYear("1960")
+                .collegeTel("042-333-3333")
+                .collegeHomePage("http://human.cnu.ac.kr")
+                .departments(List.of())
+                .build();
+
         save(college1);
+        save(college2);
+        save(college3);
     }
 
     public void save(College college) {
@@ -38,6 +64,11 @@ public class FakeCollegeRepository implements CollegeRepository {
     }
 
     public Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq) {
+        return Optional.ofNullable(database.get(collegeSeq));
+    }
+
+    @Override
+    public Optional<College> findById(Long collegeSeq) {
         return Optional.ofNullable(database.get(collegeSeq));
     }
 }

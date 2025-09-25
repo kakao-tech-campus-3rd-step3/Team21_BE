@@ -1,15 +1,8 @@
 package com.kakao.uniscope.univ;
 
-import com.kakao.uniscope.college.entity.College;
 import com.kakao.uniscope.univ.entity.University;
 import com.kakao.uniscope.univ.repository.UnivRepository;
-import com.kakao.uniscope.univ.review.entity.UnivReview;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class FakeUnivRepository implements UnivRepository {
 
@@ -20,15 +13,13 @@ public class FakeUnivRepository implements UnivRepository {
         University univ1 = University.builder()
                 .univSeq(1L)
                 .name("충남대학교")
-                .colleges(List.of(
-                        College.builder().collegeSeq(1L).collegeName("공과대학").build(),
-                        College.builder().collegeSeq(2L).collegeName("자연과학대학").build()
-                ))
-                .reviews(List.of(
-                        UnivReview.builder().univReviewSeq(10L).overallScore(4).reviewText("리뷰1").createDate(LocalDateTime.now().minusDays(1)).build(),
-                        UnivReview.builder().univReviewSeq(11L).overallScore(5).reviewText("리뷰2").createDate(LocalDateTime.now()).build(),
-                        UnivReview.builder().univReviewSeq(12L).overallScore(3).reviewText("리뷰3").createDate(LocalDateTime.now().minusDays(2)).build()
-                ))
+                .address("대전광역시 유성구 대학로 99")
+                .tel("042-821-1111")
+                .homePage("http://www.cnu.ac.kr")
+                .imageUrl("http://www.cnu.ac.kr/img/logo.png")
+                .establishedYear("1952")
+                .totalStudent(28500)
+                .campusCnt(3)
                 .build();
 
         save(univ1);
@@ -36,10 +27,13 @@ public class FakeUnivRepository implements UnivRepository {
         University univ2 = University.builder()
                 .univSeq(2L)
                 .name("서울대학교")
-                .colleges(List.of(
-                        College.builder().collegeSeq(3L).collegeName("인문대학").build()
-                ))
-                .reviews(List.of())
+                .address("서울특별시 관악구 관악로 1")
+                .tel("02-880-5114")
+                .homePage("http://www.snu.ac.kr")
+                .imageUrl("http://www.snu.ac.kr/img/logo.png")
+                .establishedYear("1946")
+                .totalStudent(30000)
+                .campusCnt(4)
                 .build();
 
         save(univ2);

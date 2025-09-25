@@ -20,9 +20,9 @@ public class UnivController {
     }
 
     @GetMapping("/{univSeq}")
-    public ResponseEntity<UnivResponseDto> getUniversityDetails(@PathVariable Long univSeq) {
+    public ResponseEntity<UnivResponseDto> getUniversityInfo(@PathVariable Long univSeq) {
 
-        UnivResponseDto responseDto = univService.getUniversityDetails(univSeq);
+        UnivResponseDto responseDto = univService.getUniversityInfo(univSeq);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }

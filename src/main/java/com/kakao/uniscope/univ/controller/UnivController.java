@@ -1,7 +1,12 @@
 package com.kakao.uniscope.univ.controller;
 
 import com.kakao.uniscope.univ.dto.UnivResponseDto;
+import com.kakao.uniscope.univ.review.dto.UnivReviewResponseDto;
+import com.kakao.uniscope.univ.review.service.UnivReviewService;
 import com.kakao.uniscope.univ.service.UnivService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UnivController {
 
     private final UnivService univService;
+    private final UnivReviewService univReviewService;
 
-    public UnivController(UnivService univService) {
+    public UnivController(UnivService univService,  UnivReviewService univReviewService) {
         this.univService = univService;
+        this.univReviewService = univReviewService;
     }
 
     @GetMapping("/{univSeq}")
@@ -24,6 +31,15 @@ public class UnivController {
 
         UnivResponseDto responseDto = univService.getUniversityInfo(univSeq);
 
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    @GetMapping("/{univSeq}/reviews")
+    public ResponseEntity<UnivReviewResponseDto> getAllUnivReviews(
+            @PathVariable Long univSeq,
+            @PageableDefault(size = 10, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        UnivReviewResponseDto responseDto = univReviewService.getAllUnivReviews(univSeq, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }

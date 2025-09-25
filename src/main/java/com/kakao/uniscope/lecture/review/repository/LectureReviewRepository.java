@@ -36,4 +36,17 @@ public interface LectureReviewRepository extends JpaRepository<LectureReivew, Lo
     @Query("SELECT AVG(CAST((lr.homework + lr.lecDifficulty + lr.examDifficulty) AS DOUBLE) / 3.0) " +
             "FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
     Double findOverallLectureRating(@Param("profSeq") Long profSeq);
+
+    // 학과별 강의평 통계
+    @Query("SELECT AVG(lr.homework) FROM LectureReivew lr " +
+            "JOIN lr.lecture l JOIN l.professor p WHERE p.department.deptSeq = :deptSeq")
+    Double findDeptAvgHomework(@Param("deptSeq") Long deptSeq);
+
+    @Query("SELECT AVG(lr.lecDifficulty) FROM LectureReivew lr " +
+            "JOIN lr.lecture l JOIN l.professor p WHERE p.department.deptSeq = :deptSeq")
+    Double findDeptAvgLecDifficulty(@Param("deptSeq") Long deptSeq);
+
+    @Query("SELECT AVG(lr.examDifficulty) FROM LectureReivew lr " +
+            "JOIN lr.lecture l JOIN l.professor p WHERE p.department.deptSeq = :deptSeq")
+    Double findDeptAvgExamDifficulty(@Param("deptSeq") Long deptSeq);
 }

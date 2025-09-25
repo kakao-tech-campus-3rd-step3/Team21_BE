@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface CollegeRepository {
 
     Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq);
+
+    Optional<College> findById(Long collegeSeq);
 }

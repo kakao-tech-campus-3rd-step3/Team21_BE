@@ -37,11 +37,7 @@ public class FakeCollegeRepository implements CollegeRepository {
         database.put(college.getCollegeSeq(), college);
     }
 
-    public Optional<College> findById(Long collegeSeq) {
+    public Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq) {
         return Optional.ofNullable(database.get(collegeSeq));
-    }
-
-    public List<College> findByUniversitySeq(Long univSeq) {
-        return new ArrayList<>(database.values());
     }
 }

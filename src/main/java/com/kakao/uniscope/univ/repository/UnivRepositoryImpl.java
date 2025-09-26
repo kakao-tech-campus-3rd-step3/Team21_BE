@@ -16,4 +16,9 @@ public class UnivRepositoryImpl implements UnivRepository {
     public Optional<University> findById(Long univSeq) {
         return univJpaRepository.findById(univSeq);
     }
+
+    @Override
+    public Optional<University> findWithCollegesByUnivSeq(Long univSeq) {
+        return univJpaRepository.findWithCollegesByUnivSeq(univSeq);
+    }
 }

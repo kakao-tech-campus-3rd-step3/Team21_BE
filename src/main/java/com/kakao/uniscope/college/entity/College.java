@@ -24,6 +24,18 @@ public class College {
     @Column(name = "COLLEGE_NAME")
     private String collegeName;
 
+    @Column(name = "COLLEGE_STUDENT_NUM")
+    private Integer collegeStudentNum;
+
+    @Column(name = "COLLEGE_ESTABLISHED_YEAR")
+    private String collegeEstablishedYear;
+
+    @Column(name = "COLLEGE_TEL")
+    private String collegeTel;
+
+    @Column(name = "COLLEGE_HOME_PAGE")
+    private String collegeHomePage;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UNIV_SEQ")
     private University university;

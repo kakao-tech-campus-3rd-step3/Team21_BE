@@ -1,6 +1,7 @@
 package com.kakao.uniscope.college;
 
-import com.kakao.uniscope.college.dto.CollegeResponseDto;
+import com.kakao.uniscope.college.dto.CollegeDetailsResponseDto;
+import com.kakao.uniscope.college.dto.DepartmentsByCollegeResponseDto;
 import com.kakao.uniscope.college.service.CollegeService;
 import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class CollegeServiceTest {
         Long collegeSeq = 1L;
 
         // when
-        CollegeResponseDto result = collegeService.getDepartmentsByCollege(collegeSeq);
+        DepartmentsByCollegeResponseDto result = collegeService.getDepartmentsByCollege(collegeSeq);
 
         // then
         assertNotNull(result);
@@ -41,5 +42,24 @@ public class CollegeServiceTest {
 
         // when & then
         assertThrows(ResourceNotFoundException.class, () -> collegeService.getDepartmentsByCollege(collegeSeq));
+    }
+
+    @Test
+    void 존재하는_단과대학_정보를_조회하면_단과대학_정보가_정상_반환된다() {
+        Long collegeSeq = 1L;
+
+        CollegeDetailsResponseDto result = collegeService.getCollegeDetails(collegeSeq);
+
+        assertNotNull(result);
+        assertEquals("공과대학", result.collegeName());
+        assertEquals(5000, result.collegeStudentNum());
+        assertEquals("1980", result.collegeEstablishedYear());
+    }
+
+    @Test
+    void 존재하지_않는_단과대학_정보를_조회하면_ResourceNotFoundException이_발생한다() {
+        Long collegeSeq = 999L;
+
+        assertThrows(ResourceNotFoundException.class, () -> collegeService.getCollegeDetails(collegeSeq));
     }
 }

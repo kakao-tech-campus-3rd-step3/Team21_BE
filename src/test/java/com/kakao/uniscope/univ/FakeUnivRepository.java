@@ -25,4 +25,9 @@ public class FakeUnivRepository implements UnivRepository {
     public Optional<University> findById(Long univSeq) {
         return Optional.ofNullable(database.get(univSeq));
     }
+
+    @Override
+    public Optional<University> findWithCollegesByUnivSeq(Long univSeq) {
+        return Optional.ofNullable(database.get(univSeq));
+    }
 }

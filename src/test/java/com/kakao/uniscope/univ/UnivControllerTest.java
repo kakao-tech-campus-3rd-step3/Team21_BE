@@ -1,5 +1,6 @@
 package com.kakao.uniscope.univ;
 
+import com.kakao.uniscope.college.dto.CollegeListResponseDto;
 import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import com.kakao.uniscope.univ.controller.UnivController;
 import com.kakao.uniscope.univ.dto.UnivResponseDto;
@@ -86,6 +87,34 @@ public class UnivControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(univReviewService, times(1)).getAllUnivReviews(eq(univSeq), any(Pageable.class));
+    }
+
+    @Test
+    void 대학의_단과대학_목록_조회_성공() throws Exception {
+        Long univSeq = 1L;
+        CollegeListResponseDto mockResponseDto = new CollegeListResponseDto(Collections.emptyList());
+
+        when(univService.getAllCollegeList(eq(univSeq))).thenReturn(mockResponseDto);
+
+        mockMvc.perform(get("/api/univ/{univSeq}/colleges", univSeq)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(univService, times(1)).getAllCollegeList(eq(univSeq));
+    }
+
+    @Test
+    void 존재하지_않는_대학의_단과대학_목록_조회_시_실패() throws Exception {
+        Long univSeq = 999L;
+
+        when(univService.getAllCollegeList(eq(univSeq)))
+                .thenThrow(new ResourceNotFoundException(univSeq + "에 해당하는 대학교를 찾을 수 없습니다."));
+
+        mockMvc.perform(get("/api/univ/{univSeq}/colleges", univSeq)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(univService, times(1)).getAllCollegeList(eq(univSeq));
     }
 
     private UnivResponseDto createMockResponseDto() {

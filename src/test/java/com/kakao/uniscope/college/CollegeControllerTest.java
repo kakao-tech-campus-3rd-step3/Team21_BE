@@ -1,7 +1,8 @@
 package com.kakao.uniscope.college;
 
 import com.kakao.uniscope.college.controller.CollegeController;
-import com.kakao.uniscope.college.dto.CollegeResponseDto;
+import com.kakao.uniscope.college.dto.CollegeDetailsResponseDto;
+import com.kakao.uniscope.college.dto.DepartmentsByCollegeResponseDto;
 import com.kakao.uniscope.college.service.CollegeService;
 import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import com.kakao.uniscope.department.dto.DepartmentDto;
@@ -35,8 +36,8 @@ public class CollegeControllerTest {
     void getDepartmentsByCollege_Success() throws Exception {
 
         Long collegeSeq = 1L;
-        DepartmentDto mockDepartmentDto = new DepartmentDto(10L, "컴퓨터공학과", "http://cs.ac.kr");
-        CollegeResponseDto mockResponseDto = new CollegeResponseDto(List.of(mockDepartmentDto));
+        DepartmentDto mockDepartmentDto = new DepartmentDto(10L, "컴퓨터공학과", "http://cs.ac.kr", "", "", "", "");
+        DepartmentsByCollegeResponseDto mockResponseDto = new DepartmentsByCollegeResponseDto(List.of(mockDepartmentDto));
 
         when(collegeService.getDepartmentsByCollege(collegeSeq)).thenReturn(mockResponseDto);
 
@@ -58,5 +59,16 @@ public class CollegeControllerTest {
                 .andExpect(status().isNotFound());
 
         verify(collegeService, times(1)).getDepartmentsByCollege(collegeSeq);
+    }
+
+    @Test
+    void 단과대학의_정보_반환_API_동작_성공()  throws Exception {
+        Long collegeSeq = 1L;
+        CollegeDetailsResponseDto mockResponseDto = new CollegeDetailsResponseDto(1L, null, null, null, null, null);
+
+        when(collegeService.getCollegeDetails(collegeSeq)).thenReturn(mockResponseDto);
+
+        mockMvc.perform(get("/api/college/{collegeSeq}/details", collegeSeq))
+                .andExpect(status().isOk());
     }
 }

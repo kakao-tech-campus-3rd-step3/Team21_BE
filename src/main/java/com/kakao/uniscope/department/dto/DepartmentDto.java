@@ -5,13 +5,21 @@ import com.kakao.uniscope.department.entity.Department;
 public record DepartmentDto(
         Long deptSeq,
         String deptName,
-        String homePage
+        String homePage,
+        String deptAddress,
+        String deptTel,
+        String deptEmail,
+        String deptEstablishedYear
 ) {
     public static DepartmentDto from(Department department) {
         return new DepartmentDto(
                 department.getDeptSeq(),
                 department.getDeptName(),
-                department.getHomePage()
+                department.getHomePage(),
+                department.getDeptAddress(),
+                department.getDeptTel(),
+                department.getDeptEmail(),
+                department.getDeptEstablishedYear()
         );
     }
 }

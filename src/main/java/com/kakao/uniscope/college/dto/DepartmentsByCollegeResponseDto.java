@@ -4,6 +4,6 @@ import com.kakao.uniscope.department.dto.DepartmentDto;
 
 import java.util.List;
 
-public record CollegeResponseDto(
+public record DepartmentsByCollegeResponseDto(
         List<DepartmentDto> departments
 ) { }

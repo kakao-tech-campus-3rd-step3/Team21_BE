@@ -1,11 +1,13 @@
 package com.kakao.uniscope.college.service;
 
-import com.kakao.uniscope.college.dto.CollegeResponseDto;
+import com.kakao.uniscope.college.dto.CollegeDetailsResponseDto;
+import com.kakao.uniscope.college.dto.DepartmentsByCollegeResponseDto;
 import com.kakao.uniscope.college.entity.College;
 import com.kakao.uniscope.college.repository.CollegeRepository;
 import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import com.kakao.uniscope.department.dto.DepartmentDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,14 +20,23 @@ public class CollegeService {
         this.collegeRepository = collegeRepository;
     }
 
-    public CollegeResponseDto getDepartmentsByCollege(Long collegeSeq) {
-        College college = collegeRepository.findById(collegeSeq)
+    @Transactional(readOnly = true)
+    public DepartmentsByCollegeResponseDto getDepartmentsByCollege(Long collegeSeq) {
+        College college = collegeRepository.findWithDepartmentsByCollegeSeq(collegeSeq)
                 .orElseThrow(() -> new ResourceNotFoundException(collegeSeq + "에 해당하는 단과대학을 찾을 수 없습니다."));
 
         List<DepartmentDto> departmentDtos = college.getDepartments().stream()
                 .map(DepartmentDto::from)
                 .toList();
 
-        return new CollegeResponseDto(departmentDtos);
+        return new DepartmentsByCollegeResponseDto(departmentDtos);
+    }
+
+    @Transactional(readOnly = true)
+    public CollegeDetailsResponseDto getCollegeDetails(Long collegeSeq) {
+        College college = collegeRepository.findById(collegeSeq)
+                .orElseThrow(() -> new ResourceNotFoundException(collegeSeq + "에 해당하는 단과대학을 찾을 수 없습니다."));
+
+        return CollegeDetailsResponseDto.from(college);
     }
 }

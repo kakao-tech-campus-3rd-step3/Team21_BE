@@ -1,6 +1,6 @@
 package com.kakao.uniscope.professor.entity;
 
-import com.kakao.uniscope.college.entity.College;
+import com.kakao.uniscope.department.entity.Department;
 import com.kakao.uniscope.lecture.entity.Lecture;
 import com.kakao.uniscope.professor.review.entity.ProfReview;
 import jakarta.persistence.CascadeType;
@@ -40,10 +40,18 @@ public class Professor {
     @Column(name = "HOME_PAGE")
     private String homePage;
 
-    // todo: 추후 college를 department(학과)와 연관관계 매핑해야함 -> profdto수정도 필요
+    @Column(name = "OFFICE")
+    private String office; // 사무실 정보(공5601)
+
+    @Column(name = "POSITION")
+    private String position; // 교수 직책 (교수, 조교수, 명예교수 등)
+
+    @Column(name = "IMAGE_URL")
+    private String imageUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COLLEGE_SEQ")  // DB에서 이 컬럼으로 College와 연결
-    private College college;
+    @JoinColumn(name = "DEPT_SEQ")
+    private Department department;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lecture> lectures = new ArrayList<>();

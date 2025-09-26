@@ -4,7 +4,6 @@ import com.kakao.uniscope.college.entity.College;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,13 +13,12 @@ public class CollegeRepositoryImpl implements CollegeRepository {
     private final CollegeJpaRepository collegeJpaRepository;
 
     @Override
-    public Optional<College> findById(Long collegeSeq) {
-        return collegeJpaRepository.findById(collegeSeq);
+    public Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq) {
+        return collegeJpaRepository.findWithDepartmentsByCollegeSeq(collegeSeq);
     }
 
     @Override
-    public List<College> findByUniversitySeq(Long univSeq) {
-        return collegeJpaRepository.findByUniversity_UnivSeq(univSeq);
+    public Optional<College> findById(Long collegeSeq) {
+        return collegeJpaRepository.findById(collegeSeq);
     }
-
 }

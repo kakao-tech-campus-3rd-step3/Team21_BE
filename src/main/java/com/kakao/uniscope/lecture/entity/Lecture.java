@@ -28,7 +28,7 @@ public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LEC_SEQ")
-    private Integer lecSeq;
+    private Long lecSeq;
 
     @Column(name = "LEC_NAME")
     private String lecName;

@@ -3,6 +3,9 @@ package com.kakao.uniscope.professor.service;
 import com.kakao.uniscope.lecture.review.dto.LectureReviewSummaryDto;
 import com.kakao.uniscope.lecture.review.entity.LectureReivew;
 import com.kakao.uniscope.lecture.review.repository.LectureReviewRepository;
+import com.kakao.uniscope.professor.dto.DepartmentAverageDto;
+import com.kakao.uniscope.professor.dto.LectureReviewPageResponseDto;
+import com.kakao.uniscope.professor.dto.LectureSimpleDto;
 import com.kakao.uniscope.professor.dto.ProfResponseDto;
 import com.kakao.uniscope.professor.dto.ProfessorDto;
 import com.kakao.uniscope.professor.dto.RatingBreakdownDto;
@@ -13,6 +16,8 @@ import com.kakao.uniscope.professor.review.repository.ProfReviewRepository;
 import java.util.List;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,11 +32,30 @@ public class ProfService {
 
         Professor professor = findProfessorById(profSeq);
         RatingBreakdownDto ratingBreakdown = calculateRatings(profSeq);
-        Double overallRating = calculateOverallRating(ratingBreakdown);
-        ProfessorDto professorDto = ProfessorDto.from(professor, overallRating, ratingBreakdown);
+        DepartmentAverageDto departmentAverage = calculateDeptRatings(professor.getDepartment().getDeptSeq());
+        Double overallRating = lectureReviewRepository.findOverallLectureRating(profSeq);
+
+        List<LectureSimpleDto> lectures = professor.getLectures().stream()
+                .map(LectureSimpleDto::from)
+                .toList();
+
+        Integer totalReviewCount = lectureReviewRepository.countByProfessorId(profSeq);
+
+        ProfessorDto professorDto = ProfessorDto.from(professor, overallRating, ratingBreakdown, departmentAverage, lectures, totalReviewCount);
         List<LectureReviewSummaryDto> lectureReviews = getRecentLectureReviews(profSeq);
 
         return new ProfResponseDto(professorDto, lectureReviews);
+    }
+
+    public LectureReviewPageResponseDto getProfessorLectureReviews(Long profSeq, Pageable pageable) {
+        findProfessorById(profSeq);
+
+        Page<LectureReivew> reviewPage = lectureReviewRepository
+                .findByLecture_Professor_ProfSeqOrderByCreatedDateDesc(profSeq, pageable);
+
+        Page<LectureReviewSummaryDto> dtoPage = reviewPage.map(LectureReviewSummaryDto::from);
+
+        return LectureReviewPageResponseDto.from(dtoPage);
     }
 
     private Professor findProfessorById(Long profSeq) {
@@ -54,12 +78,19 @@ public class ProfService {
                 avgHomework, avgLecDifficulty, avgExamDifficulty);
     }
 
-    private Double calculateOverallRating(RatingBreakdownDto ratingBreakdown) {
-        return (ratingBreakdown.thesisPerformance() +
-                ratingBreakdown.researchPerformance() +
-                ratingBreakdown.homework() +
-                ratingBreakdown.lectureDifficulty() +
-                ratingBreakdown.examDifficulty()) / 5.0;
+    private DepartmentAverageDto calculateDeptRatings(Long deptSeq) {
+        // 학과 교수 평가 통계
+        Double avgDeptThesisPerf = findAvg(() -> profReviewRepository.findDeptAvgThesisPerf(deptSeq));
+        Double avgDeptResearchPerf = findAvg(() -> profReviewRepository.findDeptAvgResearchPerf(deptSeq));
+
+        // 학과 강의 평가 통계
+        Double avgDeptHomework = findAvg(() -> lectureReviewRepository.findDeptAvgHomework(deptSeq));
+        Double avgDeptLecDifficulty = findAvg(() -> lectureReviewRepository.findDeptAvgLecDifficulty(deptSeq));
+        Double avgDeptExamDifficulty = findAvg(() -> lectureReviewRepository.findDeptAvgExamDifficulty(deptSeq));
+
+        return DepartmentAverageDto.of(
+                avgDeptThesisPerf, avgDeptResearchPerf,
+                avgDeptHomework,avgDeptLecDifficulty, avgDeptExamDifficulty);
     }
 
     private List<LectureReviewSummaryDto> getRecentLectureReviews(Long profSeq) {

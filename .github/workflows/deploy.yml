@@ -41,9 +41,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo fuser -k -n tcp 8080 || true
+            cd /home/ubuntu
             nohup java -jar \
               -Dspring.profiles.active=prod \
               -DDB_HOST=localhost \
               -DDB_USERNAME=${{ secrets.DB_USERNAME }} \
               -DDB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-              build/libs/*.jar &
+              -DJWT_SECRET=${{ secrets.JWT_SECRET }} \
+              build/libs/UniScope-0.0.1-SNAPSHOT.jar > app.log 2>&1 &

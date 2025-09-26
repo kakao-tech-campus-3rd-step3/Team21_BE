@@ -40,12 +40,19 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            sudo pkill -f UniScope || true
             sudo fuser -k -n tcp 8080 || true
+            sleep 3
+            
             cd /home/ubuntu
+            rm -f nohup.out
+                        
             nohup java -jar \
+              -Xms256m -Xmx512m \
+              -XX:+UseG1GC \
               -Dspring.profiles.active=prod \
               -DDB_HOST=localhost \
               -DDB_USERNAME=${{ secrets.DB_USERNAME }} \
               -DDB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -DJWT_SECRET=${{ secrets.JWT_SECRET }} \
-              build/libs/UniScope-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
+              build/libs/UniScope-0.0.1-SNAPSHOT.jar &

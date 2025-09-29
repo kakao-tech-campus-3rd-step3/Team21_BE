@@ -43,7 +43,6 @@ public class Department {
     @JoinColumn(name = "COLLEGE_SEQ")
     private College college;
 
-    // prof 엔티티에서 연관관계 매핑 필요
-    // @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Professor> professors = new ArrayList<>();
+     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<Professor> professors = new ArrayList<>();
 }

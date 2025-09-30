@@ -46,9 +46,11 @@ public class University {
     private Integer campusCnt;
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<College> colleges = new ArrayList<>();
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<UnivReview> reviews = new ArrayList<>();
 
     public int getCollegeCount() {

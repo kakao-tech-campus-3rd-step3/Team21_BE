@@ -39,10 +39,14 @@ public class Department {
     @Column(name = "DEPT_ESTABLISHED_YEAR")
     private String deptEstablishedYear;
 
+    @Column(name = "DEPT_INTRO")
+    private String deptIntro;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COLLEGE_SEQ")
     private College college;
 
      @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+     @Builder.Default
      private List<Professor> professors = new ArrayList<>();
 }

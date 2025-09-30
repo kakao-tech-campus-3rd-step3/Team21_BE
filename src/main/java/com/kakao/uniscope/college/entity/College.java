@@ -36,6 +36,9 @@ public class College {
     @Column(name = "COLLEGE_HOME_PAGE")
     private String collegeHomePage;
 
+    @Column(name = "COLLEGE_INTRO")
+    private String collegeIntro;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UNIV_SEQ")
     private University university;

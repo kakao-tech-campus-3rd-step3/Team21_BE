@@ -24,6 +24,6 @@ public class DepartmentCareerField implements Serializable {
 
     @MapsId("fieldSeq")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FIELD_SEQ")
+    @JoinColumn(name = "CAREER_FIELD_SEQ")
     private CareerField careerField;
 }

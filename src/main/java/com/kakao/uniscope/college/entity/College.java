@@ -46,4 +46,14 @@ public class College {
     @OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Department> departments = new ArrayList<>();
+
+    public int getProfessorCount() {
+        if (this.departments == null) {
+            return 0;
+        }
+
+        return this.departments.stream()
+                .mapToInt(department -> department.getProfessors() != null ? department.getProfessors().size() : 0)
+                .sum();
+    }
 }

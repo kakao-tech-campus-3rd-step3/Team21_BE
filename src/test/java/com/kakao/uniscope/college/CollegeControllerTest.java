@@ -64,7 +64,7 @@ public class CollegeControllerTest {
     @Test
     void 단과대학의_정보_반환_API_동작_성공()  throws Exception {
         Long collegeSeq = 1L;
-        CollegeDetailsResponseDto mockResponseDto = new CollegeDetailsResponseDto(1L, null, null, null, null, null, null);
+        CollegeDetailsResponseDto mockResponseDto = new CollegeDetailsResponseDto(1L, null, null, null, null, null, null, 1);
 
         when(collegeService.getCollegeDetails(collegeSeq)).thenReturn(mockResponseDto);
 

@@ -59,4 +59,8 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<DepartmentCareerField> departmentCareerFields = new HashSet<>();
+
+    public int getProfessorCount() {
+        return this.professors.size();
+    }
 }

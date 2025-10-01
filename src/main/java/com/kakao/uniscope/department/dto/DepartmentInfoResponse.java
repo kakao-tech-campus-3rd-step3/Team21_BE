@@ -17,6 +17,7 @@ public record DepartmentInfoResponse(
         String deptEstablishedYear,
         String deptIntro,
         Integer deptStudentNum,
+        Integer professorCount,
         Set<CareerFieldDto> careerFields
 ) {
     public static DepartmentInfoResponse from(Department department) {
@@ -25,6 +26,8 @@ public record DepartmentInfoResponse(
                 .map(DepartmentCareerField::getCareerField)
                 .map(CareerFieldDto::from)
                 .collect(Collectors.toSet());
+
+        int professorCount = department.getProfessors() != null ? department.getProfessorCount() : 0;
 
         return new DepartmentInfoResponse(
                 department.getDeptSeq(),
@@ -36,6 +39,7 @@ public record DepartmentInfoResponse(
                 department.getDeptEstablishedYear(),
                 department.getDeptIntro(),
                 department.getDeptStudentNum(),
+                professorCount,
                 careerFieldDtos
         );
     }

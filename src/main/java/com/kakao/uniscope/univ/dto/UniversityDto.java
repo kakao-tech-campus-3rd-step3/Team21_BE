@@ -11,7 +11,11 @@ public record UniversityDto(
         String image,
         String establishedYear,
         Integer totalStudent,
-        Integer campusCnt
+        Integer campusCnt,
+        Integer collegeCount,
+        Integer departmentCount,
+        Double averageRating,
+        Long reviewCount
 ) {
     public static UniversityDto from(University univ) {
         return new UniversityDto(
@@ -23,7 +27,11 @@ public record UniversityDto(
                 univ.getImageUrl(),
                 univ.getEstablishedYear(),
                 univ.getTotalStudent(),
-                univ.getCampusCnt()
+                univ.getCampusCnt(),
+                univ.getCollegeCount(),
+                univ.getDepartmentCount(),
+                univ.getAverageRating(),
+                univ.getReviewCount()
         );
     }
 }

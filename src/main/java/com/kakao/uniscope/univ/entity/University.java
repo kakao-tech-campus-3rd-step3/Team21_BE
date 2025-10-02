@@ -62,4 +62,18 @@ public class University {
                 .mapToInt(college -> college.getDepartments().size())
                 .sum();
     }
+
+    public long getReviewCount() {
+        return this.reviews.size();
+    }
+
+    public double getAverageRating() {
+        if (this.reviews.isEmpty()) {
+            return 0.0;
+        }
+        return this.reviews.stream()
+                .mapToInt(UnivReview::getOverallScore)
+                .average()
+                .orElse(0.0);
+    }
 }

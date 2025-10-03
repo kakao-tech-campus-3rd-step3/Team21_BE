@@ -22,7 +22,7 @@ public class FakeUnivRepository implements UnivRepository {
     }
 
     @Override
-    public Optional<University> findById(Long univSeq) {
+    public Optional<University> findWithFullDetailsByUnivSeq(Long univSeq) {
         return Optional.ofNullable(database.get(univSeq));
     }
 

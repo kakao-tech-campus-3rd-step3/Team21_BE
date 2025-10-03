@@ -2,8 +2,11 @@ package com.kakao.uniscope.univ;
 
 import com.kakao.uniscope.college.entity.College;
 import com.kakao.uniscope.univ.entity.University;
+import com.kakao.uniscope.univ.review.entity.UnivReview;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class TestObjectFactory {
     public static University createUniv1() {
@@ -34,7 +37,23 @@ public class TestObjectFactory {
                 .collegeHomePage("http://human.cnu.ac.kr")
                 .build();
 
-        List<College> colleges = List.of(engineeringCollege, naturalScienceCollege, humanitiesCollege);
+        Set<College> colleges = Set.of(engineeringCollege, naturalScienceCollege, humanitiesCollege);
+
+        UnivReview reviewA = UnivReview.builder()
+                .univReviewSeq(100L)
+                .overallScore(5)
+                .reviewText("캠퍼스가 아름답고 시설이 최신입니다.")
+                .createDate(LocalDateTime.now())
+                .build();
+
+        UnivReview reviewB = UnivReview.builder()
+                .univReviewSeq(101L)
+                .overallScore(4)
+                .reviewText("학식이 맛있고 기숙사 관리가 잘 됩니다.")
+                .createDate(LocalDateTime.now().minusDays(5))
+                .build();
+
+        Set<UnivReview> reviews = Set.of(reviewA, reviewB);
 
         return University.builder()
                 .univSeq(1L)
@@ -47,6 +66,7 @@ public class TestObjectFactory {
                 .totalStudent(28500)
                 .campusCnt(3)
                 .colleges(colleges)
+                .reviews(reviews)
                 .build();
     }
 

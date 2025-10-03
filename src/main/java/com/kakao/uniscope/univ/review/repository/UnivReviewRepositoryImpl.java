@@ -19,4 +19,9 @@ public class UnivReviewRepositoryImpl implements UnivReviewRepository {
     public Page<UnivReview> findByUniversity(University university, Pageable pageable) {
         return univReviewJpaRepository.findByUniversity(university, pageable);
     }
+
+    @Override
+    public UnivReview save(UnivReview univReview) {
+        return univReviewJpaRepository.save(univReview);
+    }
 }

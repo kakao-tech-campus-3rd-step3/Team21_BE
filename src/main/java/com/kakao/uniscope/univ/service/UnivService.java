@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class UnivService {
 
     private final UnivRepository univRepository;
@@ -21,15 +22,13 @@ public class UnivService {
         this.univRepository = univRepository;
     }
 
-    @Transactional(readOnly = true)
     public UnivResponseDto getUniversityInfo(Long univSeq) {
-        University university = univRepository.findById(univSeq)
+        University university = univRepository.findWithFullDetailsByUnivSeq(univSeq)
                 .orElseThrow(() -> new ResourceNotFoundException(univSeq + "에 해당하는 대학교를 찾을 수 없습니다."));
 
         return new UnivResponseDto(UniversityDto.from(university));
     }
 
-    @Transactional(readOnly = true)
     public CollegeListResponseDto getAllCollegeList(Long univSeq) {
         University university = univRepository.findWithCollegesByUnivSeq(univSeq)
                 .orElseThrow(() -> new ResourceNotFoundException(univSeq + "에 해당하는 대학교를 찾을 수 없습니다."));

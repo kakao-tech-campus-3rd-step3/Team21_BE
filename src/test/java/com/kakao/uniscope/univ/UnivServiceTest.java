@@ -20,6 +20,9 @@ public class UnivServiceTest {
         univService = new UnivService(fakeUnivRepository);
     }
 
+    /*
+    대학 상세 정보 반환 API 로직 테스트
+     */
     @Test
     @DisplayName("대학교 상세 정보 조회 시, 정보가 정상 반환된다")
     void getUniversityDetails_ReturnsDataSuccessfully() {
@@ -32,6 +35,19 @@ public class UnivServiceTest {
         // then
         assertNotNull(result);
         assertEquals("충남대학교", result.university().name());
+    }
+
+    @Test
+    void 대학교_정보_조회_시_학교_평점_및_평가_개수가_정상_계산된다() {
+        Long univSeq = 1L;
+
+        UnivResponseDto result = univService.getUniversityInfo(univSeq);
+
+        assertNotNull(result);
+        // 리뷰 개수가 2개이어야 함
+        assertEquals(2L, result.university().reviewCount());
+        // 평균 평점 검증
+        assertEquals(4.5, result.university().averageRating());
     }
 
     @Test

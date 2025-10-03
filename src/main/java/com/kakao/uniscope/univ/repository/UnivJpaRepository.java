@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface UnivJpaRepository extends JpaRepository<University, Long> {
     @EntityGraph(attributePaths = "colleges")
     Optional<University> findWithCollegesByUnivSeq(Long univSeq);
+
+    @EntityGraph(attributePaths = {"colleges.departments", "reviews"})
+    Optional<University> findWithFullDetailsByUnivSeq(Long univSeq);
 }

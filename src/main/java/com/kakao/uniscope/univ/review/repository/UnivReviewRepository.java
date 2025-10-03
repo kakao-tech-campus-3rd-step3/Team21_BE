@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface UnivReviewRepository {
     Page<UnivReview> findByUniversity(University university, Pageable pageable);
+
+    UnivReview save(UnivReview univReview);
 }

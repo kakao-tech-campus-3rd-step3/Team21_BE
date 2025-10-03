@@ -5,8 +5,8 @@ import com.kakao.uniscope.univ.entity.University;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "COLLEGE")
@@ -45,13 +45,9 @@ public class College {
 
     @OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<Department> departments = new ArrayList<>();
+    private Set<Department> departments = new HashSet<>();
 
     public int getProfessorCount() {
-        if (this.departments == null) {
-            return 0;
-        }
-
         return this.departments.stream()
                 .mapToInt(department -> department.getProfessors() != null ? department.getProfessors().size() : 0)
                 .sum();

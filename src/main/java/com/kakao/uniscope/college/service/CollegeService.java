@@ -34,7 +34,7 @@ public class CollegeService {
 
     @Transactional(readOnly = true)
     public CollegeDetailsResponseDto getCollegeDetails(Long collegeSeq) {
-        College college = collegeRepository.findById(collegeSeq)
+        College college = collegeRepository.findWithUniversityByCollegeSeq(collegeSeq)
                 .orElseThrow(() -> new ResourceNotFoundException(collegeSeq + "에 해당하는 단과대학을 찾을 수 없습니다."));
 
         return CollegeDetailsResponseDto.from(college);

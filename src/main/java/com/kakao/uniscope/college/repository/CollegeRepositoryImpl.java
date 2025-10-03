@@ -18,7 +18,7 @@ public class CollegeRepositoryImpl implements CollegeRepository {
     }
 
     @Override
-    public Optional<College> findById(Long collegeSeq) {
-        return collegeJpaRepository.findById(collegeSeq);
+    public Optional<College> findWithUniversityByCollegeSeq(Long collegeSeq) {
+        return collegeJpaRepository.findWithUniversityByCollegeSeq(collegeSeq);
     }
 }

@@ -12,4 +12,7 @@ public interface CollegeJpaRepository extends JpaRepository<College, Long> {
 
     @EntityGraph(attributePaths = "departments")
     Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq);
+
+    @EntityGraph(attributePaths = "university")
+    Optional<College> findWithUniversityByCollegeSeq(Long collegeSeq);
 }

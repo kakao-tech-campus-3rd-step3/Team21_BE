@@ -5,6 +5,7 @@ import com.kakao.uniscope.college.entity.College;
 public record CollegeSummaryDto(
         Long collegeSeq,
         String collegeName,
+        String collegeIntro,
         int departmentCount
 ) {
     public static CollegeSummaryDto from(College college) {
@@ -13,6 +14,7 @@ public record CollegeSummaryDto(
         return new CollegeSummaryDto(
                 college.getCollegeSeq(),
                 college.getCollegeName(),
+                college.getCollegeIntro(),
                 deptCount
         );
     }

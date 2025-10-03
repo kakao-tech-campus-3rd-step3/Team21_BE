@@ -29,7 +29,7 @@ public class UnivReviewService {
     }
 
     public UnivReviewResponseDto getAllUnivReviews(Long univSeq, Pageable pageable) {
-        University university = univRepository.findById(univSeq)
+        University university = univRepository.findWithFullDetailsByUnivSeq(univSeq)
                 .orElseThrow(() -> new ResourceNotFoundException(univSeq + "에 해당하는 대학교를 찾을 수 없습니다."));
 
         Page<UnivReview> reviewPage = univReviewRepository.findByUniversity(university, pageable);
@@ -41,7 +41,7 @@ public class UnivReviewService {
 
     @Transactional(readOnly = false)
     public ReviewCreateResponse createReview(UnivReviewRequest request) {
-        University university = univRepository.findById(request.univSeq())
+        University university = univRepository.findWithFullDetailsByUnivSeq(request.univSeq())
                 .orElseThrow(() -> new ResourceNotFoundException(request.univSeq() + "에 해당하는 대학교를 찾을 수 없습니다."));
 
         UnivReview newReview = UnivReview.builder()

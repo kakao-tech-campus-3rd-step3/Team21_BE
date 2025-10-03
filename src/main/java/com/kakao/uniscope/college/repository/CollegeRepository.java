@@ -8,5 +8,5 @@ public interface CollegeRepository {
 
     Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq);
 
-    Optional<College> findById(Long collegeSeq);
+    Optional<College> findWithUniversityByCollegeSeq(Long collegeSeq);
 }

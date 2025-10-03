@@ -10,7 +10,9 @@ public record CollegeDetailsResponseDto(
         String collegeTel,
         String collegeHomePage,
         String collegeIntro,
-        Integer professorCount
+        Integer professorCount,
+        String image_url,
+        String univName
 ) {
     public static CollegeDetailsResponseDto from(College college) {
         return new CollegeDetailsResponseDto(
@@ -21,7 +23,9 @@ public record CollegeDetailsResponseDto(
                 college.getCollegeTel(),
                 college.getCollegeHomePage(),
                 college.getCollegeIntro(),
-                college.getProfessorCount()
+                college.getProfessorCount(),
+                college.getUniversity().getImageUrl(),
+                college.getUniversity().getName()
         );
     }
 }

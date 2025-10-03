@@ -13,8 +13,8 @@ public class UnivRepositoryImpl implements UnivRepository {
     private final UnivJpaRepository univJpaRepository;
 
     @Override
-    public Optional<University> findById(Long univSeq) {
-        return univJpaRepository.findById(univSeq);
+    public Optional<University> findWithFullDetailsByUnivSeq(Long univSeq) {
+        return univJpaRepository.findWithFullDetailsByUnivSeq(univSeq);
     }
 
     @Override

@@ -118,7 +118,7 @@ public class UnivControllerTest {
     }
 
     private UnivResponseDto createMockResponseDto() {
-        UniversityDto universityDto = new UniversityDto(1L, "충남대학교", "대전", "042", "cnu.ac.kr", "image.png", "1952", 28000, 1);
+        UniversityDto universityDto = new UniversityDto(1L, "충남대학교", "대전", "042", "cnu.ac.kr", "image.png", "1952", 28000, 1, 17, 80, 3.5, 101L);
         return new UnivResponseDto(universityDto);
     }
 }

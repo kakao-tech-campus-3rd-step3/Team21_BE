@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UnivRepository {
 
-    Optional<University> findById(Long univSeq);
+    Optional<University> findWithFullDetailsByUnivSeq(Long univSeq);
 
     Optional<University> findWithCollegesByUnivSeq(Long univSeq);
 }

@@ -24,6 +24,21 @@ public class College {
     @Column(name = "COLLEGE_NAME")
     private String collegeName;
 
+    @Column(name = "COLLEGE_STUDENT_NUM")
+    private Integer collegeStudentNum;
+
+    @Column(name = "COLLEGE_ESTABLISHED_YEAR")
+    private String collegeEstablishedYear;
+
+    @Column(name = "COLLEGE_TEL")
+    private String collegeTel;
+
+    @Column(name = "COLLEGE_HOME_PAGE")
+    private String collegeHomePage;
+
+    @Column(name = "COLLEGE_INTRO")
+    private String collegeIntro;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UNIV_SEQ")
     private University university;
@@ -31,4 +46,14 @@ public class College {
     @OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Department> departments = new ArrayList<>();
+
+    public int getProfessorCount() {
+        if (this.departments == null) {
+            return 0;
+        }
+
+        return this.departments.stream()
+                .mapToInt(department -> department.getProfessors() != null ? department.getProfessors().size() : 0)
+                .sum();
+    }
 }

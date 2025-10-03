@@ -23,13 +23,13 @@ public class User {
     @Column(name = "USER_SEQ")
     private Long userSeq;
 
-    @Column(name = "USER_EMAIL", length = 1000, nullable = false, unique = true)
+    @Column(name = "USER_EMAIL", length = 255, nullable = false, unique = true)
     private String userEmail;
 
     @Column(name = "USER_ID", length = 100, nullable = false, unique = true)
     private String userId;
 
-    @Column(name = "USER_PWD", length = 1000, nullable = false)
+    @Column(name = "USER_PWD", length = 255, nullable = false)
     private String userPwd;
 
     @Column(name = "CREATE_USER", length = 100)

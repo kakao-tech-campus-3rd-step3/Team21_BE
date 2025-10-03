@@ -1,6 +1,7 @@
 package com.kakao.uniscope.college.controller;
 
-import com.kakao.uniscope.college.dto.CollegeResponseDto;
+import com.kakao.uniscope.college.dto.CollegeDetailsResponseDto;
+import com.kakao.uniscope.college.dto.DepartmentsByCollegeResponseDto;
 import com.kakao.uniscope.college.service.CollegeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,14 @@ public class CollegeController {
     }
 
     @GetMapping("/{collegeSeq}")
-    public ResponseEntity<CollegeResponseDto> getDepartmentsByCollege(@PathVariable Long collegeSeq) {
-        CollegeResponseDto responseDto = collegeService.getDepartmentsByCollege(collegeSeq);
+    public ResponseEntity<DepartmentsByCollegeResponseDto> getDepartmentsByCollege(@PathVariable Long collegeSeq) {
+        DepartmentsByCollegeResponseDto responseDto = collegeService.getDepartmentsByCollege(collegeSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    @GetMapping("/{collegeSeq}/details")
+    public ResponseEntity<CollegeDetailsResponseDto> getCollegeDetails(@PathVariable Long collegeSeq) {
+        CollegeDetailsResponseDto responseDto = collegeService.getCollegeDetails(collegeSeq);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }

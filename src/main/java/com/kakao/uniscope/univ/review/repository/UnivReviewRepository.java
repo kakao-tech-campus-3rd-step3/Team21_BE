@@ -2,12 +2,9 @@ package com.kakao.uniscope.univ.review.repository;
 
 import com.kakao.uniscope.univ.entity.University;
 import com.kakao.uniscope.univ.review.entity.UnivReview;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
-@Repository
-public interface UnivReviewRepository extends JpaRepository<UnivReview, Long> {
-    List<UnivReview> findTop3ByUniversityOrderByCreateDateDesc(University university);
+public interface UnivReviewRepository {
+    Page<UnivReview> findByUniversity(University university, Pageable pageable);
 }

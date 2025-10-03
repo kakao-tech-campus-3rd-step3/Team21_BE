@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "UNIV")
@@ -47,11 +49,11 @@ public class University {
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<College> colleges = new ArrayList<>();
+    private Set<College> colleges = new HashSet<>();
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<UnivReview> reviews = new ArrayList<>();
+    private Set<UnivReview> reviews = new HashSet<>();
 
     public int getCollegeCount() {
         return this.colleges.size();

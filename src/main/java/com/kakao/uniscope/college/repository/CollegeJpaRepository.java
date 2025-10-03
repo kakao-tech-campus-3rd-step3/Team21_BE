@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface CollegeJpaRepository extends JpaRepository<College, Long> {
 
-    @EntityGraph(attributePaths = "departments")
+    @EntityGraph(attributePaths = {"departments.professors"})
     Optional<College> findWithDepartmentsByCollegeSeq(Long collegeSeq);
 
     @EntityGraph(attributePaths = "university")

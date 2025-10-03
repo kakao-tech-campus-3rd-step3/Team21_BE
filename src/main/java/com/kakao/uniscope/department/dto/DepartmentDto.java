@@ -10,7 +10,10 @@ public record DepartmentDto(
         String deptTel,
         String deptEmail,
         String deptEstablishedYear,
-        String deptIntro
+        String deptIntro,
+        Integer deptStudentNum,
+        Integer professorCount,
+        Double employmentRate
 ) {
     public static DepartmentDto from(Department department) {
         return new DepartmentDto(
@@ -21,7 +24,10 @@ public record DepartmentDto(
                 department.getDeptTel(),
                 department.getDeptEmail(),
                 department.getDeptEstablishedYear(),
-                department.getDeptIntro()
+                department.getDeptIntro(),
+                department.getDeptStudentNum(),
+                department.getProfessorCount(),
+                department.getEmploymentRate()
         );
     }
 }

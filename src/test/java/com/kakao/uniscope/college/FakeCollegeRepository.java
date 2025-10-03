@@ -81,7 +81,7 @@ public class FakeCollegeRepository implements CollegeRepository {
     }
 
     @Override
-    public Optional<College> findById(Long collegeSeq) {
+    public Optional<College> findWithUniversityByCollegeSeq(Long collegeSeq) {
         return Optional.ofNullable(database.get(collegeSeq));
     }
 }

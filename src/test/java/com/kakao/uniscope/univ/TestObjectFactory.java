@@ -6,6 +6,7 @@ import com.kakao.uniscope.univ.review.entity.UnivReview;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class TestObjectFactory {
     public static University createUniv1() {
@@ -36,7 +37,7 @@ public class TestObjectFactory {
                 .collegeHomePage("http://human.cnu.ac.kr")
                 .build();
 
-        List<College> colleges = List.of(engineeringCollege, naturalScienceCollege, humanitiesCollege);
+        Set<College> colleges = Set.of(engineeringCollege, naturalScienceCollege, humanitiesCollege);
 
         UnivReview reviewA = UnivReview.builder()
                 .univReviewSeq(100L)
@@ -52,7 +53,7 @@ public class TestObjectFactory {
                 .createDate(LocalDateTime.now().minusDays(5))
                 .build();
 
-        List<UnivReview> reviews = List.of(reviewA, reviewB);
+        Set<UnivReview> reviews = Set.of(reviewA, reviewB);
 
         return University.builder()
                 .univSeq(1L)

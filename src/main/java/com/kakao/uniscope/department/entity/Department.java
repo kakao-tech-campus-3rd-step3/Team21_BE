@@ -36,6 +36,9 @@ public class Department {
     @Column(name = "DEPT_TEL")
     private String deptTel;
 
+    @Column(name = "DEPT_FAX")
+    private String deptFax;
+
     @Column(name = "DEPT_EMAIL")
     private String deptEmail;
 

@@ -42,7 +42,7 @@ public class FakeCollegeRepository implements CollegeRepository {
                 .collegeTel("042-111-1111")
                 .collegeHomePage("http://eng.cnu.ac.kr")
                 .collegeIntro("한 줄 평")
-                .departments(List.of(dept1, dept2))
+                .departments(Set.of(dept1, dept2))
                 .build();
 
         College college2 = College.builder()
@@ -53,7 +53,7 @@ public class FakeCollegeRepository implements CollegeRepository {
                 .collegeTel("042-222-2222")
                 .collegeHomePage("http://sci.cnu.ac.kr")
                 .collegeIntro("한 줄 평")
-                .departments(List.of())
+                .departments(Set.of())
                 .build();
 
         College college3 = College.builder()
@@ -64,7 +64,7 @@ public class FakeCollegeRepository implements CollegeRepository {
                 .collegeTel("042-333-3333")
                 .collegeHomePage("http://human.cnu.ac.kr")
                 .collegeIntro("한 줄 평")
-                .departments(List.of())
+                .departments(Set.of())
                 .build();
 
         save(college1);

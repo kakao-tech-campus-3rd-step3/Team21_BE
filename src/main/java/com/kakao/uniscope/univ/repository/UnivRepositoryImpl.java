@@ -1,6 +1,7 @@
 package com.kakao.uniscope.univ.repository;
 
 import com.kakao.uniscope.univ.entity.University;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +21,10 @@ public class UnivRepositoryImpl implements UnivRepository {
     @Override
     public Optional<University> findWithCollegesByUnivSeq(Long univSeq) {
         return univJpaRepository.findWithCollegesByUnivSeq(univSeq);
+    }
+
+    @Override
+    public List<University> findAll() {
+        return univJpaRepository.findAll();
     }
 }

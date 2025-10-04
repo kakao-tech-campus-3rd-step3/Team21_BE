@@ -44,6 +44,7 @@ public class College {
     private University university;
 
     @OneToMany(mappedBy = "college", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("deptSeq ASC")
     @Builder.Default
     private Set<Department> departments = new HashSet<>();
 

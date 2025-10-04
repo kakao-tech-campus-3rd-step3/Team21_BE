@@ -4,6 +4,7 @@ import com.kakao.uniscope.department.careerField.dto.CareerFieldDto;
 import com.kakao.uniscope.department.careerField.entity.DepartmentCareerField;
 import com.kakao.uniscope.department.entity.Department;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,8 @@ public record DepartmentInfoResponse(
         String deptIntro,
         Integer deptStudentNum,
         Integer professorCount,
-        Set<CareerFieldDto> careerFields
+        Set<CareerFieldDto> careerFields,
+        List<ProfessorDto> professors
 ) {
     public static DepartmentInfoResponse from(Department department) {
 
@@ -29,6 +31,10 @@ public record DepartmentInfoResponse(
                 .collect(Collectors.toSet());
 
         int professorCount = department.getProfessors() != null ? department.getProfessorCount() : 0;
+
+        List<ProfessorDto> professorDtos = department.getProfessors().stream()
+                .map(ProfessorDto::from)
+                .toList();
 
         return new DepartmentInfoResponse(
                 department.getDeptSeq(),
@@ -42,7 +48,8 @@ public record DepartmentInfoResponse(
                 department.getDeptIntro(),
                 department.getDeptStudentNum(),
                 professorCount,
-                careerFieldDtos
+                careerFieldDtos,
+                professorDtos
         );
     }
 }

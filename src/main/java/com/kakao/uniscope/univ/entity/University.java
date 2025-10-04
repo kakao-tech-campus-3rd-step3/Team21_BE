@@ -48,10 +48,12 @@ public class University {
     private Integer campusCnt;
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("collegeSeq ASC")
     @Builder.Default
     private Set<College> colleges = new HashSet<>();
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("univReviewSeq ASC")
     @Builder.Default
     private Set<UnivReview> reviews = new HashSet<>();
 

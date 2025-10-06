@@ -18,6 +18,7 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+    auth-code-expiration-millis: 300000
 
 jwt:
   secret: ${JWT_SECRET}

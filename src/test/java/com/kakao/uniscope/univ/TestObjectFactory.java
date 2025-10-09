@@ -90,4 +90,20 @@ public class TestObjectFactory {
                 .reviews(new HashSet<>())
                 .build();
     }
+
+    public static University createUniv3() {
+        return University.builder()
+                .univSeq(3L)
+                .name("제주대학교")
+                .address("제주특별자치도 ~~")
+                .tel("064-1234-5678")
+                .homePage("~~")
+                .imageUrl("")
+                .establishedYear("???")
+                .totalStudent(10000)
+                .campusCnt(1)
+                .colleges(new HashSet<>())
+                .reviews(new HashSet<>())
+                .build();
+    }
 }

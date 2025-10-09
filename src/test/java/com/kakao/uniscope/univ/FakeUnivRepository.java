@@ -13,9 +13,11 @@ public class FakeUnivRepository implements UnivRepository {
         // 더미 데이터 초기화
         University univ1 = TestObjectFactory.createUniv1();
         University univ2 = TestObjectFactory.createUniv2();
+        University univ3 = TestObjectFactory.createUniv3();
 
         save(univ1);
         save(univ2);
+        save(univ3);
     }
 
     public void save(University university) {

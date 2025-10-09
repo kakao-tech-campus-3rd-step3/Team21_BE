@@ -3,6 +3,7 @@ package com.kakao.uniscope.univ;
 import com.kakao.uniscope.univ.entity.University;
 import com.kakao.uniscope.univ.repository.UnivRepository;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FakeUnivRepository implements UnivRepository {
 
@@ -29,5 +30,17 @@ public class FakeUnivRepository implements UnivRepository {
     @Override
     public Optional<University> findWithCollegesByUnivSeq(Long univSeq) {
         return Optional.ofNullable(database.get(univSeq));
+    }
+
+    @Override
+    public List<University> findWithReviewsByUnivSeqIn(List<Long> univSeqs) {
+        return database.values().stream()
+                .filter(univ -> univSeqs.contains(univ.getUnivSeq()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<University> findAll() {
+        return new ArrayList<>(database.values());
     }
 }

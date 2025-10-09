@@ -61,10 +61,10 @@ public class FakeUnivReviewRepository implements UnivReviewRepository {
 
     private List<UnivReview> createDummyReviews(University univ1, University univ2) {
         return List.of(
-                UnivReview.builder().university(univ1).foodScore(5).dormScore(5).convScore(5).campusScore(5).overallScore(5).reviewText("리뷰1").createDate(LocalDateTime.now()).build(),
-                UnivReview.builder().university(univ1).foodScore(4).dormScore(4).convScore(4).campusScore(4).overallScore(4).reviewText("리뷰2").createDate(LocalDateTime.now().minusDays(1)).build(),
-                UnivReview.builder().university(univ1).foodScore(3).dormScore(3).convScore(3).campusScore(3).overallScore(3).reviewText("리뷰3").createDate(LocalDateTime.now().minusDays(2)).build(),
-                UnivReview.builder().university(univ1).foodScore(5).dormScore(5).convScore(5).campusScore(5).overallScore(5).reviewText("리뷰4").createDate(LocalDateTime.now()).build()
+                UnivReview.builder().university(univ1).foodScore(5).dormScore(5).convScore(5).campusScore(5).welfareScore(5).reviewText("리뷰1").createDate(LocalDateTime.now()).build(),
+                UnivReview.builder().university(univ1).foodScore(4).dormScore(4).convScore(4).campusScore(4).welfareScore(4).reviewText("리뷰2").createDate(LocalDateTime.now().minusDays(1)).build(),
+                UnivReview.builder().university(univ1).foodScore(3).dormScore(3).convScore(3).campusScore(3).welfareScore(3).reviewText("리뷰3").createDate(LocalDateTime.now().minusDays(2)).build(),
+                UnivReview.builder().university(univ1).foodScore(5).dormScore(5).convScore(5).campusScore(5).welfareScore(5).reviewText("리뷰4").createDate(LocalDateTime.now()).build()
         );
     }
 

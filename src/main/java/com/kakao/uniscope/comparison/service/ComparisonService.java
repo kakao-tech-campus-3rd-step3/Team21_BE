@@ -26,7 +26,7 @@ public class ComparisonService {
 
     // 대학 비교를 위한 로직
     public List<UniversityComparisonDto> getUniversitiesComparisonData(List<Long> univIds) {
-        if (univIds == null || univIds.isEmpty()) {
+        if (univIds == null || univIds.isEmpty() || univIds.size() > 2) {
             throw new ComparisonException("비교할 대학 ID는 1개 이상 2개 이하로 제공되어야 합니다.");
         }
 

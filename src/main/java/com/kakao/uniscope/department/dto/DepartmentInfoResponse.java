@@ -17,6 +17,8 @@ public record DepartmentInfoResponse(
         String deptEmail,
         String deptEstablishedYear,
         String deptIntro,
+        String univName,
+        String collegeName,
         Integer deptStudentNum,
         Integer professorCount,
         Set<CareerFieldDto> careerFields
@@ -40,6 +42,8 @@ public record DepartmentInfoResponse(
                 department.getDeptEmail(),
                 department.getDeptEstablishedYear(),
                 department.getDeptIntro(),
+                department.getCollege().getUniversity().getName(),
+                department.getCollege().getCollegeName(),
                 department.getDeptStudentNum(),
                 professorCount,
                 careerFieldDtos

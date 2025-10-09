@@ -5,7 +5,7 @@ public record ChartScoreDto(
         Double dormitoryAvg,
         Double convenienceAvg,
         Double campusAvg,
-        Double welfareAVg
+        Double welfareAvg
 ) {
     public static ChartScoreDto empty() {
         return new ChartScoreDto(0.0, 0.0, 0.0, 0.0, 0.0);

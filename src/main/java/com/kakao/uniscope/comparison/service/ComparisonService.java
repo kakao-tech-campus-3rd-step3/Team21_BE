@@ -3,6 +3,7 @@ package com.kakao.uniscope.comparison.service;
 import com.kakao.uniscope.common.exception.ResourceNotFoundException;
 import com.kakao.uniscope.comparison.dto.ChartScoreDto;
 import com.kakao.uniscope.comparison.dto.UniversityComparisonDto;
+import com.kakao.uniscope.comparison.exception.ComparisonException;
 import com.kakao.uniscope.univ.entity.University;
 import com.kakao.uniscope.univ.repository.UnivRepository;
 import com.kakao.uniscope.univ.review.entity.UnivReview;
@@ -26,7 +27,7 @@ public class ComparisonService {
     // 대학 비교를 위한 로직
     public List<UniversityComparisonDto> getUniversitiesComparisonData(List<Long> univIds) {
         if (univIds == null || univIds.isEmpty()) {
-            throw new IllegalArgumentException("비교할 대학 ID가 필요합니다.");
+            throw new ComparisonException("비교할 대학 ID는 1개 이상 2개 이하로 제공되어야 합니다.");
         }
 
         List<University> universities = univRepository.findWithReviewsByUnivSeqIn(univIds);

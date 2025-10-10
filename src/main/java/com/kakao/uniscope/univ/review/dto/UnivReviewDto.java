@@ -11,7 +11,7 @@ public record UnivReviewDto(
         Integer dormScore,
         Integer convScore,
         Integer campusScore,
-        Integer overallScore,
+        Integer welfareScore,
         String reviewText,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
         LocalDateTime createDate
@@ -23,7 +23,7 @@ public record UnivReviewDto(
                 univReview.getDormScore(),
                 univReview.getConvScore(),
                 univReview.getCampusScore(),
-                univReview.getOverallScore(),
+                univReview.getWelfareScore(),
                 univReview.getReviewText(),
                 univReview.getCreateDate()
         );

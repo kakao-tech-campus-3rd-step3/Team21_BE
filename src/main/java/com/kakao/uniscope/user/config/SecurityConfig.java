@@ -47,8 +47,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-                "https://uniscope-git-develop-i3months-projects.vercel.app",
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+                "https://uniscope*.vercel.app",
                 "http://localhost:5173"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

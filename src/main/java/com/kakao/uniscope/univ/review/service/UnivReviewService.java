@@ -50,7 +50,7 @@ public class UnivReviewService {
                 .dormScore(request.dormitory())
                 .convScore(request.convenience())
                 .campusScore(request.campus())
-                .overallScore(request.overall())
+                .welfareScore(request.welfare())
                 .reviewText(request.reviewText())
                 .createDate(LocalDateTime.now())
                 .build();

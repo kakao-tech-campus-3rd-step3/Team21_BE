@@ -24,6 +24,11 @@ public class UnivRepositoryImpl implements UnivRepository {
     }
 
     @Override
+    public  List<University> findWithReviewsByUnivSeqIn(List<Long> univSeqs) {
+        return univJpaRepository.findWithReviewsByUnivSeqIn(univSeqs);
+    }
+
+    @Override
     public List<University> findAll() {
         return univJpaRepository.findAll();
     }

@@ -54,6 +54,9 @@ public class Department {
     @Column(name = "EMPLOYMENT_RATE")
     private Double employmentRate;
 
+    @Column(name = "DEPT_TAGS")
+    private String deptTags;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COLLEGE_SEQ")
     private College college;

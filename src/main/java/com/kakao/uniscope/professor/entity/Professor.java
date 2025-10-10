@@ -49,6 +49,15 @@ public class Professor {
     @Column(name = "IMAGE_URL")
     private String imageUrl;
 
+    @Column(name = "MAJOR")
+    private String major;
+
+    @Column(name = "RESEARCH_FIELD")
+    private String researchField;
+
+    @Column(name = "DEGREE")
+    private String degree;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPT_SEQ")
     private Department department;

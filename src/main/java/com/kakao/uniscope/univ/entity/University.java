@@ -5,10 +5,9 @@ import com.kakao.uniscope.univ.review.entity.UnivReview;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 @Entity
 @Table(name = "UNIV")
@@ -72,12 +71,22 @@ public class University {
     }
 
     public double getAverageRating() {
-        if (this.reviews.isEmpty()) {
+        if (this.reviews == null || this.reviews.isEmpty()) {
             return 0.0;
         }
-        return this.reviews.stream()
-                .mapToInt(UnivReview::getOverallScore)
-                .average()
-                .orElse(0.0);
+        double totalSum = this.reviews.stream()
+                .flatMapToInt(review -> {
+                    int food = review.getFoodScore() != null ? review.getFoodScore() : 0;
+                    int dorm = review.getDormScore() != null ? review.getDormScore() : 0;
+                    int conv = review.getConvScore() != null ? review.getConvScore() : 0;
+                    int campus = review.getCampusScore() != null ? review.getCampusScore() : 0;
+                    int welfare = review.getWelfareScore() != null ? review.getWelfareScore() : 0;
+                    return IntStream.of(food, dorm, conv, campus, welfare);
+                })
+                .sum();
+
+        long totalCount = (long) this.reviews.size() * 5;
+
+        return totalSum / totalCount;
     }
 }

@@ -11,5 +11,7 @@ public interface UnivRepository {
 
     Optional<University> findWithCollegesByUnivSeq(Long univSeq);
 
+    List<University> findWithReviewsByUnivSeqIn(List<Long> univSeqs);
+
     List<University> findAll();
 }

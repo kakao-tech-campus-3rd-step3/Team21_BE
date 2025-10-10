@@ -24,9 +24,9 @@ public record UnivReviewRequest(
         @Min(1) @Max(5)
         Integer campus,
 
-        @NotNull(message = "전반적인 만족도 평점은 필수입니다.")
+        @NotNull(message = "학생 복지 평점은 필수입니다.")
         @Min(1) @Max(5)
-        Integer overall,
+        Integer welfare,
 
         String reviewText
 ) { }

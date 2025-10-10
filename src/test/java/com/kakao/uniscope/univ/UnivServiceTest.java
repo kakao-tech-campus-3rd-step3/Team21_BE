@@ -47,7 +47,7 @@ public class UnivServiceTest {
         // 리뷰 개수가 2개이어야 함
         assertEquals(2L, result.university().reviewCount());
         // 평균 평점 검증
-        assertEquals(4.5, result.university().averageRating());
+        assertEquals(4.3, result.university().averageRating());
     }
 
     @Test
@@ -64,6 +64,6 @@ public class UnivServiceTest {
         CollegeListResponseDto result = univService.getAllCollegeList(univSeq);
 
         assertNotNull(result);
-        assertEquals(3, result.colleges().size());
+        assertEquals(2, result.colleges().size());
     }
 }

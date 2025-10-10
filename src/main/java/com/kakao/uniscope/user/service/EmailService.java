@@ -3,6 +3,7 @@ package com.kakao.uniscope.user.service;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class EmailService {
     private long ttlMillis;
 
     private final Map<String, CodeEntry> emailToCodeStore = new ConcurrentHashMap<>();
+    private final Set<String> verifiedEmails = ConcurrentHashMap.newKeySet(); // 검증된 이메일 저장용
 
     public void sendVerificationCode(String toEmail) {
         String code = generateSixDigitCode();
@@ -57,6 +59,7 @@ public class EmailService {
         boolean match = Objects.equals(entry.code(), code);
         if (match) {
             emailToCodeStore.remove(email);
+            verifiedEmails.add(email); // 검증된 이메일로 추가
         }
         
         return match;
@@ -68,4 +71,9 @@ public class EmailService {
 
     // 인증 코드와 만료 시간 저장용 레코드
     private record CodeEntry(String code, Instant expiresAt) {}
+
+    // 이메일이 검증되었는지 확인
+    public boolean isEmailVerified(String email) {
+        return verifiedEmails.contains(email);
+    }
 }

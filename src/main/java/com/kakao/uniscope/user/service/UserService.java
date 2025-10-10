@@ -20,6 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final EmailService emailService;
 
     //회원가입
     @Transactional
@@ -32,6 +33,11 @@ public class UserService {
         // 아이디 중복 체크
         if (userRepository.existsByUserId(requestDto.getUserId())) {
             throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+        }
+
+        // 이메일 인증 여부 확인
+        if (!emailService.isEmailVerified(requestDto.getUserEmail())) {
+            throw new IllegalArgumentException("이메일 인증이 완료되지 않았습니다.");
         }
 
         // 비밀번호 암호화

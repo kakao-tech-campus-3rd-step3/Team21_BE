@@ -25,8 +25,8 @@ public class ProfessorComparisonService {
     private final LectureReviewRepository lectureReviewRepository;
 
     public List<ProfessorComparisonDto> getProfessorsComparisonData(List<Long> profSeqs) {
-        if (profSeqs == null || profSeqs.isEmpty() || profSeqs.size() > 2) {
-            throw new ComparisonException("비교할 교수 ID는 1개 이상 2개 이하로 제공되어야 합니다.");
+        if (profSeqs == null || profSeqs.isEmpty() || profSeqs.size() > 3) {
+            throw new ComparisonException("비교할 교수 ID는 1개 이상 3개 이하로 제공되어야 합니다.");
         }
 
         List<Professor> professors = professorRepository.findAllById(profSeqs);

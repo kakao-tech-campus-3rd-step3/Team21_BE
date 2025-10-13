@@ -1,0 +1,17 @@
+package com.kakao.uniscope.professor.review.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
+
+public record ProfReviewResponse(
+        Long reviewSeq,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+        LocalDateTime timestamp
+) {
+    public static ProfReviewResponse of(Long reviewSeq) {
+        return new ProfReviewResponse(
+                reviewSeq,
+                LocalDateTime.now()
+        );
+    }
+}

@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/signup", "/api/users/login", "/api/users/email/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/reviews/univ").permitAll() // 대학 리뷰 작성은 허용
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

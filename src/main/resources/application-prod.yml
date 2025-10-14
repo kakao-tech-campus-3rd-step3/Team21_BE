@@ -23,3 +23,7 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   token-validity-in-seconds: 3600
+
+swagger:
+  local-url: http://localhost:8080
+  prod-url: http://13.125.1.77:8080

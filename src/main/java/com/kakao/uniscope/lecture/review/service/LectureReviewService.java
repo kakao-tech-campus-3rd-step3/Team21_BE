@@ -5,7 +5,7 @@ import com.kakao.uniscope.lecture.entity.Lecture;
 import com.kakao.uniscope.lecture.repository.LectureRepository;
 import com.kakao.uniscope.lecture.review.dto.LectureReviewRequest;
 import com.kakao.uniscope.lecture.review.dto.LectureReviewResponse;
-import com.kakao.uniscope.lecture.review.entity.LectureReivew;
+import com.kakao.uniscope.lecture.review.entity.LectureReview;
 import com.kakao.uniscope.lecture.review.repository.LectureReviewRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class LectureReviewService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         request.lecSeq() + "에 해당하는 강의를 찾을 수 없습니다."));
 
-        LectureReivew newReview = LectureReivew.builder()
+        LectureReview newReview = LectureReview.builder()
                 .lecture(lecture)
                 .semester(request.getSemesterString())
                 .lecDifficulty(request.lecDifficulty())
@@ -37,7 +37,7 @@ public class LectureReviewService {
                 .createdDate(LocalDateTime.now())
                 .build();
 
-        LectureReivew savedReview = lectureReviewRepository.save(newReview);
+        LectureReview savedReview = lectureReviewRepository.save(newReview);
 
         return LectureReviewResponse.of(savedReview.getLecReviewSeq());
     }

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LectureReivew {
+public class LectureReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

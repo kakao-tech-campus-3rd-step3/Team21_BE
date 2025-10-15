@@ -35,4 +35,10 @@ public class UserController {
         return ResponseEntity.ok(CommonResponseDto.ok("로그인에 성공했습니다.", loginResponse));
     }
 
+    // 아이디 중복 확인: 중복이면 409, 사용 가능이면 204
+    @GetMapping("/check-id")
+    public ResponseEntity<Void> checkUserId(@RequestParam String userId) {
+        boolean duplicated = userService.existsByUserId(userId);
+        return duplicated ? ResponseEntity.status(409).build() : ResponseEntity.noContent().build();
+    }
 }

@@ -1,6 +1,7 @@
 package com.kakao.uniscope.comparison.controller;
 
 import com.kakao.uniscope.comparison.dto.ProfessorComparisonDto;
+import com.kakao.uniscope.comparison.dto.UnivRatingTrendResponseDto;
 import com.kakao.uniscope.comparison.dto.UniversityComparisonDto;
 import com.kakao.uniscope.comparison.service.ComparisonService;
 import com.kakao.uniscope.comparison.service.ProfessorComparisonService;
@@ -43,6 +44,20 @@ public class ComparisonController {
     ) {
         List<UniversityComparisonDto> response = comparisonService.getUniversitiesComparisonData(univSeqs);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Operation(summary = "학교 비교 연도별 평점 추이 데이터 조회 API", description = "1~2개 학교의 종합 평점 추이 데이터를 제공합니다. (비교하는 연도 기준 8년 전까지의 데이터를 제공합니다.")
+    @GetMapping("/university-rating-trends")
+    public ResponseEntity<UnivRatingTrendResponseDto> getUnivRatingTrendData(
+            @Parameter(
+                    description = "비교할 대학들의 고유 번호 목록 (1~2개)",
+                    schema = @Schema(type = "array", example = "1,2")
+            )
+            @RequestParam("univSeqs") List<Long> univSeqs
+    ) {
+        UnivRatingTrendResponseDto responseDto = comparisonService.getUnivRatingTrendData(univSeqs);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+
     }
 
     @Operation(summary = "교수 비교 데이터 조회 API", description = "1~3명의 교수의 간단한 정보와 각 평가 항목의 평균을 반환합니다.")

@@ -39,6 +39,6 @@ public class LectureReviewService {
 
         LectureReview savedReview = lectureReviewRepository.save(newReview);
 
-        return LectureReviewResponse.of(savedReview.getLecReviewSeq());
+        return LectureReviewResponse.of(savedReview.getLecReviewSeq(), savedReview.getCreatedDate());
     }
 }

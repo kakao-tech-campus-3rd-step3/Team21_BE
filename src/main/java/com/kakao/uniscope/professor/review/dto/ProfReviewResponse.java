@@ -8,10 +8,10 @@ public record ProfReviewResponse(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
         LocalDateTime timestamp
 ) {
-    public static ProfReviewResponse of(Long reviewSeq) {
+    public static ProfReviewResponse of(Long reviewSeq, LocalDateTime timestamp) {
         return new ProfReviewResponse(
                 reviewSeq,
-                LocalDateTime.now()
+                timestamp
         );
     }
 }

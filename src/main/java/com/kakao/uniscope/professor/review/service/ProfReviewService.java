@@ -36,6 +36,6 @@ public class ProfReviewService {
 
         ProfReview savedReview = profReviewRepository.save(newReview);
 
-        return ProfReviewResponse.of(savedReview.getProfReviewSeq());
+        return ProfReviewResponse.of(savedReview);
     }
 }

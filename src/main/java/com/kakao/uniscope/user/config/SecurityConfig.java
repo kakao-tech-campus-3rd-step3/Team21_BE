@@ -36,7 +36,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers("/api/users/signup", "/api/users/login", "/api/users/email/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/reviews/univ").permitAll() // 대학 리뷰 작성은 허용
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/reviews/univ",      // 대학 리뷰
+                                "/api/reviews/prof",      // 교수 리뷰
+                                "/api/reviews/lecture"    // 강의 리뷰
+                        ).permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 );

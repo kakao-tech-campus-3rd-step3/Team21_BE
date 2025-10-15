@@ -1,8 +1,10 @@
 package com.kakao.uniscope.department.dto;
 
+import com.kakao.uniscope.college.entity.College;
 import com.kakao.uniscope.department.careerField.dto.CareerFieldDto;
 import com.kakao.uniscope.department.careerField.entity.DepartmentCareerField;
 import com.kakao.uniscope.department.entity.Department;
+import com.kakao.uniscope.univ.entity.University;
 
 import java.util.List;
 import java.util.Set;
@@ -28,6 +30,9 @@ public record DepartmentInfoResponse(
 ) {
     public static DepartmentInfoResponse from(Department department) {
 
+        College college = department.getCollege();
+        University university = (college != null) ? college.getUniversity() : null;
+
         Set<CareerFieldDto> careerFieldDtos = department.getDepartmentCareerFields().stream()
                 .map(DepartmentCareerField::getCareerField)
                 .map(CareerFieldDto::from)
@@ -49,9 +54,9 @@ public record DepartmentInfoResponse(
                 department.getDeptEmail(),
                 department.getDeptEstablishedYear(),
                 department.getDeptIntro(),
-                department.getCollege().getUniversity().getName(),
-                department.getCollege().getUniversity().getImageUrl(),
-                department.getCollege().getCollegeName(),
+                (university != null) ? university.getName() : null,
+                (university != null) ? university.getImageUrl() : null,
+                (college != null) ? college.getCollegeName() : null,
                 department.getDeptStudentNum(),
                 professorCount,
                 careerFieldDtos,

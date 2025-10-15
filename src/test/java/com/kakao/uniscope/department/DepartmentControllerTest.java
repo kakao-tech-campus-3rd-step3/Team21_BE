@@ -30,7 +30,7 @@ public class DepartmentControllerTest {
     void 학과_상세_정보_조회_API_동작_성공() throws Exception {
         Long deptSeq = 1L;
 
-        DepartmentInfoResponse mockResponse = new DepartmentInfoResponse(1L, "", "", "", "", "", "", "", 0, null, null);
+        DepartmentInfoResponse mockResponse = new DepartmentInfoResponse(1L, "", "", "", "", "", "", "", "", "", "","", 0, null, null, null);
 
         when(departmentService.getDeptDetails(deptSeq)).thenReturn(mockResponse);
 

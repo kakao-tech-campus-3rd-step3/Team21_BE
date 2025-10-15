@@ -36,6 +36,9 @@ public class Department {
     @Column(name = "DEPT_TEL")
     private String deptTel;
 
+    @Column(name = "DEPT_FAX")
+    private String deptFax;
+
     @Column(name = "DEPT_EMAIL")
     private String deptEmail;
 
@@ -47,6 +50,12 @@ public class Department {
 
     @Column(name = "DEPT_STUDENT_NUM")
     private Integer deptStudentNum;
+
+    @Column(name = "EMPLOYMENT_RATE")
+    private Double employmentRate;
+
+    @Column(name = "DEPT_TAGS")
+    private String deptTags;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COLLEGE_SEQ")

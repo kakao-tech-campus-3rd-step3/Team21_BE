@@ -35,14 +35,11 @@ public class UnivReview {
     @Column(name = "CAMPUS")
     private Integer campusScore;
 
-    @Column(name = "OVER_ALL")
-    private Integer overallScore;
+    @Column(name = "WELFARE")
+    private Integer welfareScore;
 
     @Column(name = "REVIEW_TXT")
     private String reviewText;
-
-    @Column(name = "CREATE_USER")
-    private String createUser;
 
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;

@@ -3,6 +3,8 @@ package com.kakao.uniscope.college;
 import com.kakao.uniscope.college.entity.College;
 import com.kakao.uniscope.college.repository.CollegeRepository;
 import com.kakao.uniscope.department.entity.Department;
+import com.kakao.uniscope.univ.TestObjectFactory;
+import com.kakao.uniscope.univ.entity.University;
 
 import java.util.*;
 
@@ -12,6 +14,9 @@ public class FakeCollegeRepository implements CollegeRepository {
 
     public FakeCollegeRepository() {
         // 더미 데이터 초기화
+
+        University mockUniversity = TestObjectFactory.createUniv1();
+
         Department dept1 = Department.builder()
                 .deptSeq(1L)
                 .deptName("컴퓨터공학과")
@@ -42,7 +47,8 @@ public class FakeCollegeRepository implements CollegeRepository {
                 .collegeTel("042-111-1111")
                 .collegeHomePage("http://eng.cnu.ac.kr")
                 .collegeIntro("한 줄 평")
-                .departments(List.of(dept1, dept2))
+                .university(mockUniversity)
+                .departments(Set.of(dept1, dept2))
                 .build();
 
         College college2 = College.builder()
@@ -53,7 +59,8 @@ public class FakeCollegeRepository implements CollegeRepository {
                 .collegeTel("042-222-2222")
                 .collegeHomePage("http://sci.cnu.ac.kr")
                 .collegeIntro("한 줄 평")
-                .departments(List.of())
+                .university(mockUniversity)
+                .departments(Set.of())
                 .build();
 
         College college3 = College.builder()
@@ -64,7 +71,8 @@ public class FakeCollegeRepository implements CollegeRepository {
                 .collegeTel("042-333-3333")
                 .collegeHomePage("http://human.cnu.ac.kr")
                 .collegeIntro("한 줄 평")
-                .departments(List.of())
+                .university(mockUniversity)
+                .departments(Set.of())
                 .build();
 
         save(college1);
@@ -81,7 +89,7 @@ public class FakeCollegeRepository implements CollegeRepository {
     }
 
     @Override
-    public Optional<College> findById(Long collegeSeq) {
+    public Optional<College> findWithUniversityByCollegeSeq(Long collegeSeq) {
         return Optional.ofNullable(database.get(collegeSeq));
     }
 }

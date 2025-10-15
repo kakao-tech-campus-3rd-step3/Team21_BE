@@ -36,7 +36,7 @@ public class CollegeControllerTest {
     void getDepartmentsByCollege_Success() throws Exception {
 
         Long collegeSeq = 1L;
-        DepartmentDto mockDepartmentDto = new DepartmentDto(1L, "컴퓨터공학과", "http://cs.ac.kr", "", "", "", "", "");
+        DepartmentDto mockDepartmentDto = new DepartmentDto(1L, "컴퓨터공학과", "http://cs.ac.kr", "", "", "", "", "", "", 1, 2, 0.1, "");
         DepartmentsByCollegeResponseDto mockResponseDto = new DepartmentsByCollegeResponseDto(List.of(mockDepartmentDto));
 
         when(collegeService.getDepartmentsByCollege(collegeSeq)).thenReturn(mockResponseDto);
@@ -64,7 +64,7 @@ public class CollegeControllerTest {
     @Test
     void 단과대학의_정보_반환_API_동작_성공()  throws Exception {
         Long collegeSeq = 1L;
-        CollegeDetailsResponseDto mockResponseDto = new CollegeDetailsResponseDto(1L, null, null, null, null, null, null, 1);
+        CollegeDetailsResponseDto mockResponseDto = new CollegeDetailsResponseDto(1L, null, null, null, null, null, null, 1, "", "");
 
         when(collegeService.getCollegeDetails(collegeSeq)).thenReturn(mockResponseDto);
 

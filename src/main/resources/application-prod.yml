@@ -10,7 +10,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hyoeun2894@gmail.com
+    password: ${GMAIL_APP_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+    auth-code-expiration-millis: 300000
 
 jwt:
   secret: ${JWT_SECRET}
   token-validity-in-seconds: 3600
+
+swagger:
+  local-url: http://localhost:8080
+  prod-url: http://13.125.1.77:8080

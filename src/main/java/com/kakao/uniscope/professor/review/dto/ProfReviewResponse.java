@@ -1,6 +1,7 @@
 package com.kakao.uniscope.professor.review.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.kakao.uniscope.professor.review.entity.ProfReview;
 import java.time.LocalDateTime;
 
 public record ProfReviewResponse(

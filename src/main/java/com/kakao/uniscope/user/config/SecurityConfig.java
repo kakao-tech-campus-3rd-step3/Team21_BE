@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**", "api/users//check-id").permitAll()
                         .requestMatchers("/api/users/signup", "/api/users/login", "/api/users/email/**").permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/reviews/univ",      // 대학 리뷰

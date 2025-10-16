@@ -1,6 +1,6 @@
 package com.kakao.uniscope.lecture.review.repository;
 
-import com.kakao.uniscope.lecture.review.entity.LectureReivew;
+import com.kakao.uniscope.lecture.review.entity.LectureReview;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +10,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LectureReviewRepository extends JpaRepository<LectureReivew, Long> {
+public interface LectureReviewRepository extends JpaRepository<LectureReview, Long> {
 
-    List<LectureReivew> findTop3ByLecture_Professor_ProfSeqOrderByCreatedDateDesc(Long profSeq);
+    List<LectureReview> findTop3ByLecture_Professor_ProfSeqOrderByCreatedDateDesc(Long profSeq);
 
-    Page<LectureReivew> findByLecture_Professor_ProfSeqOrderByCreatedDateDesc(Long profSeq, Pageable pageable);
+    Page<LectureReview> findByLecture_Professor_ProfSeqOrderByCreatedDateDesc(Long profSeq, Pageable pageable);
 
     // 과제량 평균
     @Query("SELECT AVG(lr.homework) FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")

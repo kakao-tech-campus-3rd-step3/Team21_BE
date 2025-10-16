@@ -26,7 +26,7 @@ public record DepartmentInfoResponse(
         Integer deptStudentNum,
         Integer professorCount,
         Set<CareerFieldDto> careerFields,
-        List<ProfessorDto> professors
+        List<ProfessorSummaryDto> professors
 ) {
     public static DepartmentInfoResponse from(Department department) {
 
@@ -40,8 +40,8 @@ public record DepartmentInfoResponse(
 
         int professorCount = department.getProfessors() != null ? department.getProfessorCount() : 0;
 
-        List<ProfessorDto> professorDtos = department.getProfessors().stream()
-                .map(ProfessorDto::from)
+        List<ProfessorSummaryDto> professorSummaryDtos = department.getProfessors().stream()
+                .map(ProfessorSummaryDto::from)
                 .toList();
 
         return new DepartmentInfoResponse(
@@ -60,7 +60,7 @@ public record DepartmentInfoResponse(
                 department.getDeptStudentNum(),
                 professorCount,
                 careerFieldDtos,
-                professorDtos
+                professorSummaryDtos
         );
     }
 }

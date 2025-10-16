@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 "/api/reviews/lecture"    // 강의 리뷰
                         ).permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

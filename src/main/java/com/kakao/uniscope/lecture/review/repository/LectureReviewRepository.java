@@ -17,36 +17,46 @@ public interface LectureReviewRepository extends JpaRepository<LectureReview, Lo
     Page<LectureReview> findByLecture_Professor_ProfSeqOrderByCreatedDateDesc(Long profSeq, Pageable pageable);
 
     // 과제량 평균
-    @Query("SELECT AVG(lr.homework) FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
+    @Query("SELECT AVG(lr.homework) FROM LectureReview lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
     Double findAvgHomework(@Param("profSeq") Long profSeq);
 
     // 수업 난이도 평균
-    @Query("SELECT AVG(lr.lecDifficulty) FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
+    @Query("SELECT AVG(lr.lecDifficulty) FROM LectureReview lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
     Double findAvgLecDifficulty(@Param("profSeq") Long profSeq);
 
     // 시험 난이도 평균
-    @Query("SELECT AVG(lr.examDifficulty) FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
+    @Query("SELECT AVG(lr.examDifficulty) FROM LectureReview lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
     Double findAvgExamDifficulty(@Param("profSeq") Long profSeq);
 
     // 교수별 전체 강의평 개수
-    @Query("SELECT COUNT(lr) FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
+    @Query("SELECT COUNT(lr) FROM LectureReview lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
     Integer countByProfessorId(@Param("profSeq") Long profSeq);
 
     // 전체 강의평 평점 평균 (강의평 기준 전체 평점용)
     @Query("SELECT AVG(CAST((lr.homework + lr.lecDifficulty + lr.examDifficulty) AS DOUBLE) / 3.0) " +
-            "FROM LectureReivew lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
+            "FROM LectureReview lr JOIN lr.lecture l WHERE l.professor.profSeq = :profSeq")
     Double findOverallLectureRating(@Param("profSeq") Long profSeq);
 
     // 학과별 강의평 통계
-    @Query("SELECT AVG(lr.homework) FROM LectureReivew lr " +
+    @Query("SELECT AVG(lr.homework) FROM LectureReview lr " +
             "JOIN lr.lecture l JOIN l.professor p WHERE p.department.deptSeq = :deptSeq")
     Double findDeptAvgHomework(@Param("deptSeq") Long deptSeq);
 
-    @Query("SELECT AVG(lr.lecDifficulty) FROM LectureReivew lr " +
+    @Query("SELECT AVG(lr.lecDifficulty) FROM LectureReview lr " +
             "JOIN lr.lecture l JOIN l.professor p WHERE p.department.deptSeq = :deptSeq")
     Double findDeptAvgLecDifficulty(@Param("deptSeq") Long deptSeq);
 
-    @Query("SELECT AVG(lr.examDifficulty) FROM LectureReivew lr " +
+    @Query("SELECT AVG(lr.examDifficulty) FROM LectureReview lr " +
             "JOIN lr.lecture l JOIN l.professor p WHERE p.department.deptSeq = :deptSeq")
     Double findDeptAvgExamDifficulty(@Param("deptSeq") Long deptSeq);
+
+    // 학기별 강의평 통계
+    @Query("SELECT lr.semester, " +
+            "AVG(CAST((lr.homework + lr.lecDifficulty + lr.examDifficulty) AS DOUBLE) / 3.0) as avgRating " +
+            "FROM LectureReview lr JOIN lr.lecture l " +
+            "WHERE l.professor.profSeq = :profSeq " +
+            "AND lr.semester IN ('2021-1', '2021-2', '2022-1', '2022-2', '2023-1', '2023-2', '2024-1', '2024-2') " +
+            "GROUP BY lr.semester " +
+            "ORDER BY lr.semester DESC")
+    List<Object[]> findSemesterAveragesByProfessor(@Param("profSeq") Long profSeq);
 }

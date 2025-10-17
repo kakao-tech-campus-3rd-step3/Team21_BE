@@ -2,7 +2,7 @@ package com.kakao.uniscope.department.dto;
 
 import com.kakao.uniscope.professor.entity.Professor;
 
-public record ProfessorDto(
+public record ProfessorSummaryDto(
         Long profSeq,
         String profName,
         String profEmail,
@@ -10,8 +10,8 @@ public record ProfessorDto(
         String office,
         String imageUrl
 ) {
-    public static ProfessorDto from(Professor professor) {
-        return new ProfessorDto(
+    public static ProfessorSummaryDto from(Professor professor) {
+        return new ProfessorSummaryDto(
                 professor.getProfSeq(),
                 professor.getProfName(),
                 professor.getProfEmail(),

@@ -31,7 +31,7 @@ public class ProfController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "교수의 강의 목록 조회 API", description = "특정 교수의 전체 강의 목록을 최신순으로 페이지네이션하여 조회합니다.")
+    @Operation(summary = "교수의 강의 리뷰 목록 조회 API", description = "특정 교수의 전체 강의 리뷰 목록을 최신순으로 페이지네이션하여 조회합니다.")
     @GetMapping("/{prof_seq}/reviews")
     public ResponseEntity<LectureReviewPageResponseDto> getProfessorLectureReviews(
             @PathVariable("prof_seq") Long profSeq,

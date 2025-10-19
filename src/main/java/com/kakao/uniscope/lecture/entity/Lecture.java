@@ -33,14 +33,8 @@ public class Lecture {
     @Column(name = "LEC_NAME")
     private String lecName;
 
-    @Column(name = "ENG_LEC_YN")
-    private String engLecYn;
-
     @Column(name = "PF_YN")
     private String pnf;
-
-    @Column(name = "REL_YN")
-    private String relYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROF_SEQ")

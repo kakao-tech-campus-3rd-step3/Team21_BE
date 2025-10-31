@@ -1,6 +1,6 @@
 package com.kakao.uniscope.lecture.entity;
 
-import com.kakao.uniscope.lecture.review.entity.LectureReivew;
+import com.kakao.uniscope.lecture.review.entity.LectureReview;
 import com.kakao.uniscope.professor.entity.Professor;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,19 +33,13 @@ public class Lecture {
     @Column(name = "LEC_NAME")
     private String lecName;
 
-    @Column(name = "ENG_LEC_YN")
-    private String engLecYn;
-
     @Column(name = "PF_YN")
     private String pnf;
-
-    @Column(name = "REL_YN")
-    private String relYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROF_SEQ")
     private Professor professor;
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LectureReivew> lectureReviews = new ArrayList<>();
+    private List<LectureReview> lectureReviews = new ArrayList<>();
 }

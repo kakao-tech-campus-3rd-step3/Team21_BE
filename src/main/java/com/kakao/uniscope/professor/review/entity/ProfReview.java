@@ -10,13 +10,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "PROF_REVIEW")
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProfReview {
 
@@ -37,4 +42,7 @@ public class ProfReview {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROF_SEQ")
     private Professor professor;
+
+    @Column(name = "CREATE_DATE")
+    private LocalDateTime createDate;
 }

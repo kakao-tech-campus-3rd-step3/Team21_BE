@@ -1,7 +1,7 @@
 package com.kakao.uniscope.professor.service;
 
 import com.kakao.uniscope.lecture.review.dto.LectureReviewSummaryDto;
-import com.kakao.uniscope.lecture.review.entity.LectureReivew;
+import com.kakao.uniscope.lecture.review.entity.LectureReview;
 import com.kakao.uniscope.lecture.review.repository.LectureReviewRepository;
 import com.kakao.uniscope.professor.dto.DepartmentAverageDto;
 import com.kakao.uniscope.professor.dto.LectureReviewPageResponseDto;
@@ -50,7 +50,7 @@ public class ProfService {
     public LectureReviewPageResponseDto getProfessorLectureReviews(Long profSeq, Pageable pageable) {
         findProfessorById(profSeq);
 
-        Page<LectureReivew> reviewPage = lectureReviewRepository
+        Page<LectureReview> reviewPage = lectureReviewRepository
                 .findByLecture_Professor_ProfSeqOrderByCreatedDateDesc(profSeq, pageable);
 
         Page<LectureReviewSummaryDto> dtoPage = reviewPage.map(LectureReviewSummaryDto::from);
@@ -94,7 +94,7 @@ public class ProfService {
     }
 
     private List<LectureReviewSummaryDto> getRecentLectureReviews(Long profSeq) {
-        List<LectureReivew> recentLectureReviews = lectureReviewRepository
+        List<LectureReview> recentLectureReviews = lectureReviewRepository
                 .findTop3ByLecture_Professor_ProfSeqOrderByCreatedDateDesc(profSeq)
                 .stream()
                 .toList();

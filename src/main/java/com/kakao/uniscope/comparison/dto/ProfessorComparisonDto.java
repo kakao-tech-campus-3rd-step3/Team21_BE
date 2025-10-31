@@ -1,5 +1,6 @@
 package com.kakao.uniscope.comparison.dto;
 
+import java.util.List;
 import lombok.Builder;
 
 @Builder
@@ -8,6 +9,7 @@ public record ProfessorComparisonDto(
         String profName,
         String univName,
         String deptName,
-        ProfessorScoreDto scores
+        ProfessorScoreDto scores,
+        List<SemesterDto> semesterDto
 ) {
 }

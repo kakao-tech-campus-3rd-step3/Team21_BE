@@ -1,6 +1,6 @@
 package com.kakao.uniscope.lecture.review.dto;
 
-import com.kakao.uniscope.lecture.review.entity.LectureReivew;
+import com.kakao.uniscope.lecture.review.entity.LectureReview;
 import java.time.LocalDateTime;
 
 public record LectureReviewSummaryDto(
@@ -15,7 +15,7 @@ public record LectureReviewSummaryDto(
         String content,
         LocalDateTime createdDate
 ) {
-    public static LectureReviewSummaryDto from(LectureReivew lectureReview) {
+    public static LectureReviewSummaryDto from(LectureReview lectureReview) {
         return new LectureReviewSummaryDto(
                 lectureReview.getLecReviewSeq(),
                 lectureReview.getLecture().getLecName(),

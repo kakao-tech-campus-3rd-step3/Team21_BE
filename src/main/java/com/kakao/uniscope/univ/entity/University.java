@@ -1,6 +1,7 @@
 package com.kakao.uniscope.univ.entity;
 
 import com.kakao.uniscope.college.entity.College;
+import com.kakao.uniscope.comparison.util.NumberUtils;
 import com.kakao.uniscope.univ.review.entity.UnivReview;
 import jakarta.persistence.*;
 import lombok.*;
@@ -71,10 +72,14 @@ public class University {
     }
 
     public double getAverageRating() {
-        if (this.reviews == null || this.reviews.isEmpty()) {
+        return calculateAvgRating(this.reviews);
+    }
+
+    public static double calculateAvgRating(Set<UnivReview> reviews) {
+        if (reviews == null || reviews.isEmpty()) {
             return 0.0;
         }
-        double totalSum = this.reviews.stream()
+        double totalSum = reviews.stream()
                 .flatMapToInt(review -> {
                     int food = review.getFoodScore() != null ? review.getFoodScore() : 0;
                     int dorm = review.getDormScore() != null ? review.getDormScore() : 0;
@@ -85,8 +90,10 @@ public class University {
                 })
                 .sum();
 
-        long totalCount = (long) this.reviews.size() * 5;
+        long totalCount = (long) reviews.size() * 5;
 
-        return totalSum / totalCount;
+        double rawAverage = totalSum / totalCount;
+
+        return NumberUtils.roundToOneDecimalPlace(rawAverage);
     }
 }

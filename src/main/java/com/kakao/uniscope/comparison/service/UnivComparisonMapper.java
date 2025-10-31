@@ -4,6 +4,7 @@ import com.kakao.uniscope.comparison.dto.ChartScoreDto;
 import com.kakao.uniscope.comparison.dto.UnivYearlyRatingTrendDto;
 import com.kakao.uniscope.comparison.dto.UnivYearlyScoreDto;
 import com.kakao.uniscope.comparison.dto.UniversityComparisonDto;
+import com.kakao.uniscope.comparison.util.NumberUtils;
 import com.kakao.uniscope.univ.entity.University;
 import com.kakao.uniscope.univ.review.entity.UnivReview;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,13 @@ public class UnivComparisonMapper {
         double campusAvg = reviews.stream().mapToInt(r -> r.getCampusScore() != null ? r.getCampusScore() : 0).average().orElse(0.0);
         double welfareAvg = reviews.stream().mapToInt(r -> r.getWelfareScore() != null ? r.getWelfareScore() : 0).average().orElse(0.0);
 
-        return new ChartScoreDto(foodAvg, dormAvg, convAvg, campusAvg, welfareAvg);
+        return new ChartScoreDto(
+                NumberUtils.roundToOneDecimalPlace(foodAvg),
+                NumberUtils.roundToOneDecimalPlace(dormAvg),
+                NumberUtils.roundToOneDecimalPlace(convAvg),
+                NumberUtils.roundToOneDecimalPlace(campusAvg),
+                NumberUtils.roundToOneDecimalPlace(welfareAvg)
+        );
     }
 
     // 연도별 추이 데이터 생성

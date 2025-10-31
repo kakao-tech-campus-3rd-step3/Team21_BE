@@ -1,6 +1,7 @@
 package com.kakao.uniscope.univ.entity;
 
 import com.kakao.uniscope.college.entity.College;
+import com.kakao.uniscope.comparison.util.NumberUtils;
 import com.kakao.uniscope.univ.review.entity.UnivReview;
 import jakarta.persistence.*;
 import lombok.*;
@@ -91,6 +92,8 @@ public class University {
 
         long totalCount = (long) reviews.size() * 5;
 
-        return totalSum / totalCount;
+        double rawAverage = totalSum / totalCount;
+
+        return NumberUtils.roundToOneDecimalPlace(rawAverage);
     }
 }

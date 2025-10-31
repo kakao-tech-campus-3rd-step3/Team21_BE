@@ -3,6 +3,7 @@ package com.kakao.uniscope.comparison.service;
 import com.kakao.uniscope.comparison.dto.ProfessorComparisonDto;
 import com.kakao.uniscope.comparison.dto.ProfessorScoreDto;
 import com.kakao.uniscope.comparison.dto.SemesterDto;
+import com.kakao.uniscope.comparison.util.NumberUtils;
 import com.kakao.uniscope.lecture.review.repository.LectureReviewRepository;
 import com.kakao.uniscope.professor.entity.Professor;
 import com.kakao.uniscope.professor.review.repository.ProfReviewRepository;
@@ -42,11 +43,11 @@ public class ProfessorComparisonMapper {
         Double avgExamDifficulty = findAvg(() -> lectureReviewRepository.findAvgExamDifficulty(profSeq));
 
         return new ProfessorScoreDto(
-                avgThesisPerf,
-                avgResearchPerf,
-                avgHomework,
-                avgLecDifficulty,
-                avgExamDifficulty
+                NumberUtils.roundToOneDecimalPlace(avgThesisPerf),
+                NumberUtils.roundToOneDecimalPlace(avgResearchPerf),
+                NumberUtils.roundToOneDecimalPlace(avgHomework),
+                NumberUtils.roundToOneDecimalPlace(avgLecDifficulty),
+                NumberUtils.roundToOneDecimalPlace(avgExamDifficulty)
         );
     }
 
@@ -61,7 +62,9 @@ public class ProfessorComparisonMapper {
 
     private SemesterDto mapToSemesterTrendDto(Object[] row) {
         String dbSemester = (String) row[0];  // "2024-1", "2023-2" 등
-        Double avgRating = (Double) row[1];
+        Double rawAvgRating = (Double) row[1];
+
+        Double avgRating = NumberUtils.roundToOneDecimalPlace(rawAvgRating);
 
         String displaySemester = convertToDisplaySemester(dbSemester);
         return SemesterDto.of(displaySemester, avgRating);

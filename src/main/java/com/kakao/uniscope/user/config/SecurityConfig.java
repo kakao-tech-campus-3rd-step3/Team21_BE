@@ -1,6 +1,8 @@
 package com.kakao.uniscope.user.config;
 
 import java.util.Arrays;
+
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -34,7 +36,8 @@ public class SecurityConfig {
                 .headers(header-> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/**", "api/users//check-id").permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**", "api/users/check-id").permitAll()
                         .requestMatchers("/api/users/signup", "/api/users/login", "/api/users/email/**").permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/reviews/univ",      // 대학 리뷰

@@ -57,7 +57,10 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(
                 "https://uniscope*.vercel.app",
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "https://www.uniscope.store",
+                "https://uniscope.store",
+                "https://uniscope-jet.vercel.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));

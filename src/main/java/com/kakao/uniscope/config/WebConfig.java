@@ -14,7 +14,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("https://uniscope-git-develop-i3months-projects.vercel.app",
-                                "http://localhost:5173")
+                                "http://localhost:5173",
+                                "https://www.uniscope.store",
+                                "https://uniscope.store"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
                                 "http://localhost:5173",
                                 "https://www.uniscope.store",
                                 "https://uniscope.store",
-                                "https://uniscope-jet.vercel.app/"
+                                "https://uniscope-jet.vercel.app"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
